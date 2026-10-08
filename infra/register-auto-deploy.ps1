@@ -8,7 +8,8 @@ if (-not (Test-Path $bash)) { throw "Không thấy Git Bash tại $bash" }
 $drive = $root.Substring(0, 1).ToLower()
 $posix = '/' + $drive + ($root.Substring(2) -replace '\\', '/')
 function Register-Do360Task($name, $script, $offsetMinutes) {
-  $action = New-ScheduledTaskAction -Execute $bash -Argument ('-lc "cd ' + $posix + ' && bash infra/' + $script + '"') -WorkingDirectory $root
+  # chạy qua wscript + run-hidden.vbs để KHÔNG hiện cửa sổ console mỗi 5 phút
+  $action = New-ScheduledTaskAction -Execute 'wscript.exe' -Argument ('"' + (Join-Path $root 'infraun-hidden.vbs') + '" ' + $script) -WorkingDirectory $root
   $trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes($offsetMinutes) -RepetitionInterval (New-TimeSpan -Minutes 5)
   $settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Minutes 40) -MultipleInstances IgnoreNew -StartWhenAvailable -Hidden
   Register-ScheduledTask -TaskName $name -Action $action -Trigger $trigger -Settings $settings -Force | Out-Null
