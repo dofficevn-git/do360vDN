@@ -1,0 +1,45 @@
+# Lĩnh vực: Kinh tế — công thương, hộ kinh doanh, chuyển đổi số hộ kinh doanh (mục II.1). Nguồn: CSDL đăng ký kinh doanh (REFERENCE),
+# sổ theo dõi CĐS hộ kinh doanh của Phòng Kinh tế (LOCAL_MASTER: Object hộ kinh doanh + Event tiếp cận/cài ứng dụng).
+# Số mẫu Báo cáo 436: 594 hồ sơ HKD tiếp nhận, 324 chấp thuận; 344/442 HKD tiếp cận CĐS (77,8%); 144 HKD cài ứng dụng.
+domain: kinh_te
+owner_dept: kinh_te
+regulation_ref: Báo cáo 436/BC-UBND (mục II.1)
+indicators:
+  - id: kinh_te.hkd_ho_so_tiep_nhan
+    name: Hồ sơ đăng ký hộ kinh doanh tiếp nhận
+    unit: hồ sơ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: kinh_te.hkd_ho_so_chap_thuan
+    name: Hồ sơ đăng ký hộ kinh doanh được chấp thuận
+    unit: hồ sơ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: kinh_te.hkd_tong
+    name: Tổng số hộ kinh doanh đang hoạt động
+    unit: hộ
+    value_type: integer
+    aggregation: point_in_time
+    capture_method: export
+    definition: Đếm Object "Hộ kinh doanh" trạng thái hoạt động (ownership REFERENCE — CSDL đăng ký kinh doanh).
+  - id: kinh_te.hkd_cds_tiep_can
+    name: Hộ kinh doanh đã tiếp cận giải pháp chuyển đổi số
+    unit: hộ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+    definition: Đếm Event "tiếp cận CĐS" trên Object hộ kinh doanh (LOCAL_MASTER).
+  - id: kinh_te.hkd_cai_ung_dung
+    name: Hộ kinh doanh đã cài ứng dụng
+    unit: hộ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: kinh_te.doanh_nghiep_moi
+    name: Doanh nghiệp thành lập mới trên địa bàn
+    unit: doanh nghiệp
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export

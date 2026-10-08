@@ -1,0 +1,12 @@
+# Relation Type Dictionary (Blueprint V0.5 mục 9) — quan hệ là first-class, không nhập tự do.
+relations:
+  - { key: HAS_CONTRACTOR, name: Nhà thầu thi công, source: du_an, target: to_chuc }
+  - { key: LOCATED_AT, name: Nằm trên địa bàn, source: du_an, target: dia_ban }
+  - { key: LOCATED_IN, name: Thuộc địa bàn, source: ho_kinh_doanh, target: dia_ban }
+  - { key: USES_FUNDING, name: Sử dụng nguồn vốn, source: du_an, target: nguon_von }
+  - { key: AFFECTS_LAND, name: Ảnh hưởng thửa đất, source: du_an, target: thua_dat }
+  - { key: BELONGS_TO, name: Thuộc về, source: ho_so, target: du_an }
+  - { key: RELATES_TO, name: Liên quan, source: van_ban, target: du_an }
+  - { key: ASSIGNED_TO, name: Giao cho, source: nhiem_vu, target: can_bo }
+  - { key: MANAGED_BY, name: Phòng quản lý, source: du_an, target: phong_ban }
+  - { key: SUPPORTED_BY, name: Được hỗ trợ bởi, source: ho_kinh_doanh, target: to_chuc }

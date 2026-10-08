@@ -1,0 +1,112 @@
+# DO360 cap xa - stack phat trien / demo tren may nay.
+# Cong host rieng, KHONG trung cac stack dang chay: ZSC (8080/5442), Vu Thu (8090/5454), CT5D, KPI.
+#   Postgres 5462 | MinIO 9110 (API) 9111 (console) | API 3070 | reader 3072 | web 3071
+name: do360
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg15   # da co san tren may (dung nhu Postgres 15 thuong; khong dung vector)
+    container_name: do360_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: do360
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Thieu DB_PASSWORD trong infra/.env}
+    ports:
+      - '127.0.0.1:5462:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio
+    container_name: do360_minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:?Thieu MINIO_ACCESS_KEY trong infra/.env}
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:?Thieu MINIO_SECRET_KEY trong infra/.env}
+    ports:
+      - '127.0.0.1:9110:9000'
+      - '127.0.0.1:9111:9001'
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ['CMD', 'mc', 'ready', 'local']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  reader:
+    build:
+      context: ../services/reader
+      dockerfile: Dockerfile
+      args:
+        WITH_OCR: "0"          # "1" de cai PaddleOCR (anh/scan) - build lau, image ~2GB
+    container_name: do360_reader
+    restart: unless-stopped
+    ports:
+      - '127.0.0.1:3072:8000'
+    healthcheck:
+      test: ['CMD-SHELL', "python -c \"import urllib.request;urllib.request.urlopen('http://localhost:8000/health')\""]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ../services/api
+      dockerfile: Dockerfile
+    container_name: do360_api
+    restart: unless-stopped
+    env_file:
+      - ../services/api/.env.production
+    environment:
+      NODE_ENV: production
+      DB_HOST: postgres
+      DB_PORT: 5432
+      MINIO_ENDPOINT: minio
+      MINIO_PORT: 9000
+      CONFIG_DIR: /config
+      READER_URL: http://reader:8000
+    volumes:
+      - ../config:/config:ro
+      - api_uploads:/app/uploads
+    ports:
+      - '127.0.0.1:3070:3000'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_started
+      reader:
+        condition: service_started
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -qO- http://localhost:3000/health || exit 1']
+      interval: 15s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build:
+      context: ../apps/web
+      dockerfile: Dockerfile
+    container_name: do360_web
+    restart: unless-stopped
+    environment:
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:3070/api}
+    ports:
+      - '127.0.0.1:3071:3001'
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  postgres_data:
+  minio_data:
+  api_uploads:

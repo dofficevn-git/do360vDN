@@ -1,0 +1,55 @@
+# Lĩnh vực: Quy hoạch – đầu tư – xây dựng – GPMB (mục II.1). Nguồn: Hệ thống thông tin giải quyết TTHC (hồ sơ quy hoạch, xây dựng),
+# sổ theo dõi dự án của Phòng Kinh tế (Object dự án/công trình, Event giải ngân/nghiệm thu).
+# Số mẫu Báo cáo 436: 67 hồ sơ quy hoạch (65 sớm/đúng hạn, 2 quá hạn); 234 hồ sơ xây dựng (228 đã giải quyết, 6 đang xử lý).
+domain: quy_hoach_xay_dung
+owner_dept: kinh_te
+regulation_ref: Báo cáo 436/BC-UBND (mục II.1)
+indicators:
+  - id: qh.ho_so_tiep_nhan
+    name: Hồ sơ quy hoạch tiếp nhận
+    unit: hồ sơ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: qh.ho_so_dung_han
+    name: Hồ sơ quy hoạch giải quyết sớm, đúng hạn
+    unit: hồ sơ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: qh.ho_so_qua_han
+    name: Hồ sơ quy hoạch giải quyết quá hạn
+    unit: hồ sơ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: xd.ho_so_tiep_nhan
+    name: Hồ sơ xây dựng tiếp nhận
+    unit: hồ sơ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: xd.ho_so_da_giai_quyet
+    name: Hồ sơ xây dựng đã giải quyết
+    unit: hồ sơ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: xd.ho_so_dang_xu_ly
+    name: Hồ sơ xây dựng đang xử lý
+    unit: hồ sơ
+    value_type: integer
+    aggregation: point_in_time
+    capture_method: export
+  - id: gpmb.phuong_an
+    name: Phương án bồi thường, GPMB đã phê duyệt
+    unit: phương án
+    value_type: integer
+    aggregation: cumulative
+    capture_method: form
+  - id: gpmb.gia_tri_boi_thuong
+    name: Giá trị bồi thường, hỗ trợ đã chi trả
+    unit: đồng
+    value_type: money
+    aggregation: cumulative
+    capture_method: form

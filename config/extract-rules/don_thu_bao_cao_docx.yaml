@@ -1,0 +1,13 @@
+# Luật bóc tách: báo cáo công tác tiếp công dân, giải quyết đơn thư (Word) của Công an phường — mẫu câu.
+# Dùng trong bộ demo Điện Bàn Bắc (lỗi thật số 1: tổng đã giải quyết 84 nhưng chi tiết 41 + 4 = 45).
+source_type: don_thu_bao_cao_docx
+version: 1
+file_kind: docx
+domain: noi_chinh
+match:
+  text_contains: "đơn thư"
+sentences:
+  - pattern: "tiếp {a:number} lượt công dân"
+    groups: { a: tiep_dan.luot_tiep }
+  - pattern: "tiếp nhận {a:number} đơn thư, đã giải quyết {b:number} đơn (gồm {c:number} khiếu nại, {d:number} tố cáo, {e:number} kiến nghị, phản ánh), đang xử lý {f:number} đơn"
+    groups: { a: tiep_dan.don_tiep_nhan, b: tiep_dan.don_da_giai_quyet, c: tiep_dan.gq_khieu_nai, d: tiep_dan.gq_to_cao, e: tiep_dan.gq_kien_nghi, f: tiep_dan.don_dang_xu_ly }

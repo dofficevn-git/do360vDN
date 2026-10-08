@@ -1,0 +1,16 @@
+# Luật bóc tách BIỂU MẪU EXCEL CHUẨN của bộ phận Ban Chỉ huy quân sự — SINH TỰ ĐỘNG bởi tools/make_forms.py, không sửa tay.
+# Khớp theo cột 'Mã chỉ tiêu' (nhãn hàng = mã) và cột 'Giá trị'. Đổi danh mục → chạy lại script và tăng version.
+source_type: bieu_mau_quan_su_xlsx
+version: 1
+file_kind: xlsx
+domain: null
+match:
+  sheet: Biểu mẫu
+  header_contains: Mã chỉ tiêu
+map:
+- row: quoc_phong.thanh_nien_nhap_ngu
+  column: Giá trị
+  indicator: quoc_phong.thanh_nien_nhap_ngu
+- row: quoc_phong.dan_quan_huan_luyen
+  column: Giá trị
+  indicator: quoc_phong.dan_quan_huan_luyen

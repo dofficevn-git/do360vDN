@@ -1,0 +1,76 @@
+# Bộ demo "Phường Điện Bàn Bắc" — tài khoản theo vai. Trang đăng nhập liệt kê danh sách này khi API đặt DEMO_MODE=1.
+# Tên người, email, mật khẩu đều là dữ liệu dựng cho demo (không phải cán bộ thật).
+unit: Phường Điện Bàn Bắc
+tenant_id: DBB01
+password: Demo@2026
+accounts:
+  - email: vanphong@dienbanbac.demo
+    full_name: Nguyễn Thị Thu Hà
+    title: Chánh Văn phòng HĐND và UBND
+    role: commune_admin
+    department: van_phong
+    head_of: van_phong
+  - email: chutich@dienbanbac.demo
+    full_name: Trần Văn Minh
+    title: Chủ tịch UBND phường
+    role: leader
+  - email: hdnd@dienbanbac.demo
+    full_name: Lê Thị Bích Ngọc
+    title: Phó Chủ tịch HĐND phường
+    role: council
+  - email: motcua@dienbanbac.demo
+    full_name: Phạm Thị Lan
+    title: Chuyên viên Trung tâm phục vụ hành chính công
+    role: department_staff
+    department: hanh_chinh_cong
+  - email: motcua.truong@dienbanbac.demo
+    full_name: Võ Văn Thành
+    title: Giám đốc Trung tâm phục vụ hành chính công
+    role: department_staff
+    department: hanh_chinh_cong
+    head_of: hanh_chinh_cong
+  - email: kinhte@dienbanbac.demo
+    full_name: Nguyễn Văn Hùng
+    title: Kế toán ngân sách, Phòng Kinh tế
+    role: department_staff
+    department: kinh_te
+  - email: kinhte.truong@dienbanbac.demo
+    full_name: Đặng Quốc Bảo
+    title: Trưởng phòng Kinh tế, Hạ tầng và Đô thị
+    role: department_staff
+    department: kinh_te
+    head_of: kinh_te
+  - email: congan@dienbanbac.demo
+    full_name: Hoàng Văn Tuấn
+    title: Cán bộ Công an phường
+    role: department_staff
+    department: cong_an
+  - email: congan.truong@dienbanbac.demo
+    full_name: Lê Minh Đức
+    title: Trưởng Công an phường
+    role: department_staff
+    department: cong_an
+    head_of: cong_an
+  - email: yte@dienbanbac.demo
+    full_name: Trần Thị Mai
+    title: Trạm trưởng Trạm Y tế
+    role: department_staff
+    department: y_te
+    head_of: y_te
+  - email: yte.nv@dienbanbac.demo
+    full_name: Ngô Thị Thanh
+    title: Nhân viên Trạm Y tế
+    role: department_staff
+    department: y_te
+  - email: vhxh@dienbanbac.demo
+    full_name: Nguyễn Thị Hương
+    title: Trưởng phòng Văn hoá - Xã hội
+    role: department_staff
+    department: van_hoa_xa_hoi
+    head_of: van_hoa_xa_hoi
+  - email: quansu@dienbanbac.demo
+    full_name: Phan Văn Lợi
+    title: Chỉ huy trưởng Ban Chỉ huy quân sự
+    role: department_staff
+    department: quan_su
+    head_of: quan_su

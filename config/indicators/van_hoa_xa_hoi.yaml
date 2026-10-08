@@ -1,0 +1,71 @@
+# Lĩnh vực: Văn hoá, giáo dục, lao động, y tế (mục II.2). Nguồn: Trạm Y tế (báo cáo Word/PDF), sổ theo dõi.
+domain: van_hoa_xa_hoi
+owner_dept: van_hoa_xa_hoi
+regulation_ref: Báo cáo 436/BC-UBND (mục II.2)
+indicators:
+  - id: vhxh.gia_dinh_van_hoa
+    name: Tỷ lệ gia đình văn hoá
+    unit: "%"
+    value_type: percent
+    aggregation: point_in_time
+    capture_method: form
+  - id: vhxh.viec_lam_moi
+    name: Lao động được giải quyết việc làm mới
+    unit: người
+    value_type: integer
+    aggregation: cumulative
+    capture_method: form
+  - id: vhxh.the_bhyt
+    name: Thẻ BHYT đã cấp cho đối tượng chính sách
+    unit: thẻ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: y_te.luot_kham
+    name: Lượt khám, chữa bệnh tại Trạm Y tế
+    unit: lượt
+    value_type: integer
+    aggregation: cumulative
+    capture_method: pdf_text
+    owner_dept: y_te
+  - id: y_te.luot_bhyt
+    name: Lượt khám, chữa bệnh bảo hiểm y tế
+    unit: lượt
+    value_type: integer
+    aggregation: cumulative
+    owner_dept: y_te
+    parent: y_te.luot_kham
+  - id: y_te.luot_yhct
+    name: Lượt khám, chữa bệnh y học cổ truyền
+    unit: lượt
+    value_type: integer
+    aggregation: cumulative
+    owner_dept: y_te
+    parent: y_te.luot_kham
+  - id: y_te.tre_tiem_chung
+    name: Trẻ em được tiêm chủng
+    unit: trẻ
+    value_type: integer
+    aggregation: cumulative
+    owner_dept: y_te
+  - id: y_te.tiem_chung_mui
+    name: Mũi tiêm chủng mở rộng đã thực hiện
+    unit: mũi
+    value_type: integer
+    aggregation: cumulative
+    capture_method: pdf_text
+    owner_dept: y_te
+  - id: y_te.tre_tiem_du
+    name: Trẻ dưới 1 tuổi tiêm đủ mũi
+    unit: trẻ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: pdf_text
+    owner_dept: y_te
+  - id: y_te.ca_dich_benh
+    name: Ca mắc bệnh truyền nhiễm ghi nhận
+    unit: ca
+    value_type: integer
+    aggregation: cumulative
+    capture_method: pdf_text
+    owner_dept: y_te

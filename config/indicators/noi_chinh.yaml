@@ -1,0 +1,148 @@
+# Lĩnh vực: Nội chính — tư pháp, hộ tịch (Văn phòng), tiếp công dân và đơn thư (Văn phòng), an ninh trật tự (Công an), quốc phòng (Quân sự).
+# Đơn thư: bộ số có 2 phép kiểm — tổng tiếp nhận = đã giải quyết + đang xử lý; đã giải quyết = cộng theo loại đơn
+# (đây là lỗi thật của Báo cáo 436: ghi 84/99 nhưng chi tiết chỉ cộng được 45).
+domain: noi_chinh
+owner_dept: van_phong
+regulation_ref: Báo cáo 436/BC-UBND (mục II.3)
+indicators:
+  - id: tu_phap.khai_sinh
+    name: Đăng ký khai sinh
+    unit: trường hợp
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: tu_phap.khai_tu
+    name: Đăng ký khai tử
+    unit: trường hợp
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: tu_phap.ket_hon
+    name: Đăng ký kết hôn
+    unit: cặp
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: tu_phap.chung_thuc
+    name: Chứng thực bản sao, chữ ký
+    unit: việc
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: tu_phap.hoa_giai_tiep_nhan
+    name: Vụ việc hoà giải ở cơ sở tiếp nhận
+    unit: vụ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: form
+  - id: tu_phap.hoa_giai_thanh
+    name: Vụ việc hoà giải thành
+    unit: vụ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: form
+    parent: tu_phap.hoa_giai_tiep_nhan
+  - id: tiep_dan.luot_tiep
+    name: Lượt tiếp công dân
+    unit: lượt
+    value_type: integer
+    aggregation: cumulative
+    capture_method: form
+    owner_dept: cong_an
+  - id: tiep_dan.don_tiep_nhan
+    name: Đơn thư tiếp nhận
+    unit: đơn
+    value_type: integer
+    aggregation: cumulative
+    capture_method: pdf_text
+    owner_dept: cong_an
+  - id: tiep_dan.don_da_giai_quyet
+    name: Đơn thư đã giải quyết
+    unit: đơn
+    value_type: integer
+    aggregation: cumulative
+    capture_method: pdf_text
+    parent: tiep_dan.don_tiep_nhan
+    owner_dept: cong_an
+  - id: tiep_dan.don_dang_xu_ly
+    name: Đơn thư đang xử lý
+    unit: đơn
+    value_type: integer
+    aggregation: point_in_time
+    capture_method: pdf_text
+    parent: tiep_dan.don_tiep_nhan
+    owner_dept: cong_an
+  - id: tiep_dan.gq_khieu_nai
+    name: Đơn khiếu nại đã giải quyết
+    unit: đơn
+    value_type: integer
+    aggregation: cumulative
+    capture_method: pdf_text
+    parent: tiep_dan.don_da_giai_quyet
+    owner_dept: cong_an
+  - id: tiep_dan.gq_to_cao
+    name: Đơn tố cáo đã giải quyết
+    unit: đơn
+    value_type: integer
+    aggregation: cumulative
+    capture_method: pdf_text
+    parent: tiep_dan.don_da_giai_quyet
+    owner_dept: cong_an
+  - id: tiep_dan.gq_kien_nghi
+    name: Đơn kiến nghị, phản ánh đã giải quyết
+    unit: đơn
+    value_type: integer
+    aggregation: cumulative
+    capture_method: pdf_text
+    parent: tiep_dan.don_da_giai_quyet
+    owner_dept: cong_an
+  - id: an_ninh.thuong_tru
+    name: Nhân khẩu thường trú
+    unit: người
+    value_type: integer
+    aggregation: point_in_time
+    capture_method: pdf_text
+    owner_dept: cong_an
+  - id: an_ninh.tam_tru
+    name: Nhân khẩu tạm trú
+    unit: người
+    value_type: integer
+    aggregation: point_in_time
+    capture_method: pdf_text
+    owner_dept: cong_an
+  - id: an_ninh.vu_viec
+    name: Vụ việc về an ninh trật tự
+    unit: vụ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: pdf_text
+    owner_dept: cong_an
+  - id: an_ninh.vu_viec_xu_ly
+    name: Vụ việc đã điều tra, xử lý
+    unit: vụ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: pdf_text
+    owner_dept: cong_an
+    parent: an_ninh.vu_viec
+  - id: an_ninh.tai_nan_gt
+    name: Tai nạn giao thông
+    unit: vụ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: pdf_text
+    owner_dept: cong_an
+  - id: quoc_phong.thanh_nien_nhap_ngu
+    name: Thanh niên nhập ngũ
+    unit: người
+    value_type: integer
+    aggregation: cumulative
+    capture_method: form
+    owner_dept: quan_su
+  - id: quoc_phong.dan_quan_huan_luyen
+    name: Dân quân được huấn luyện
+    unit: người
+    value_type: integer
+    aggregation: cumulative
+    capture_method: form
+    owner_dept: quan_su

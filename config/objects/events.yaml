@@ -1,0 +1,23 @@
+# Event Type Dictionary (Blueprint V0.5 mục 10) — sự kiện xảy ra với Object theo thời gian; chỉ thêm, có nguồn.
+# values: khoá số liệu kèm sự kiện (vd giải ngân mang số tiền) → cộng dồn thành chỉ tiêu DERIVED.
+events:
+  - { key: phe_duyet, name: Phê duyệt, object_types: [du_an] }
+  - { key: phan_bo_von, name: Phân bổ vốn, object_types: [du_an], values: [so_tien] }
+  - { key: khoi_cong, name: Khởi công, object_types: [du_an] }
+  - { key: ky_hop_dong, name: Ký hợp đồng, object_types: [du_an], values: [gia_tri] }
+  - { key: giai_ngan, name: Giải ngân, object_types: [du_an], values: [so_tien], indicator: tai_chinh.giai_ngan }
+  - { key: gpmb, name: Bàn giao mặt bằng, object_types: [du_an], values: [ty_le] }
+  - { key: dieu_chinh, name: Điều chỉnh, object_types: [du_an] }
+  - { key: kiem_tra, name: Kiểm tra hiện trường, object_types: [du_an] }
+  - { key: nghiem_thu, name: Nghiệm thu, object_types: [du_an] }
+  - { key: hoan_thanh, name: Hoàn thành, object_types: [du_an, nhiem_vu] }
+  - { key: tiep_can_cds, name: Tiếp cận giải pháp chuyển đổi số, object_types: [ho_kinh_doanh], indicator: kinh_te.hkd_cds_tiep_can }
+  - { key: cai_ung_dung, name: Cài đặt ứng dụng, object_types: [ho_kinh_doanh], indicator: kinh_te.hkd_cai_ung_dung }
+  - { key: dang_ky_moi, name: Đăng ký mới, object_types: [ho_kinh_doanh, to_chuc] }
+  - { key: ngung_hoat_dong, name: Ngừng hoạt động, object_types: [ho_kinh_doanh, to_chuc] }
+  - { key: ban_hanh, name: Ban hành, object_types: [van_ban] }
+  - { key: tiep_nhan, name: Tiếp nhận, object_types: [van_ban] }
+  - { key: giao, name: Giao việc, object_types: [nhiem_vu] }
+  - { key: bat_dau, name: Bắt đầu thực hiện, object_types: [nhiem_vu] }
+  - { key: huy, name: Huỷ, object_types: [nhiem_vu] }
+  - { key: hop, name: Họp, object_types: [don_vi] }

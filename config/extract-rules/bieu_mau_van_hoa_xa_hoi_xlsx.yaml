@@ -1,0 +1,31 @@
+# Luật bóc tách BIỂU MẪU EXCEL CHUẨN của bộ phận Phòng Văn hóa - Xã hội — SINH TỰ ĐỘNG bởi tools/make_forms.py, không sửa tay.
+# Khớp theo cột 'Mã chỉ tiêu' (nhãn hàng = mã) và cột 'Giá trị'. Đổi danh mục → chạy lại script và tăng version.
+source_type: bieu_mau_van_hoa_xa_hoi_xlsx
+version: 1
+file_kind: xlsx
+domain: null
+match:
+  sheet: Biểu mẫu
+  header_contains: Mã chỉ tiêu
+map:
+- row: csxh.ho_ngheo
+  column: Giá trị
+  indicator: csxh.ho_ngheo
+- row: csxh.ho_can_ngheo
+  column: Giá trị
+  indicator: csxh.ho_can_ngheo
+- row: csxh.tro_cap_luot
+  column: Giá trị
+  indicator: csxh.tro_cap_luot
+- row: csxh.tro_cap_tien
+  column: Giá trị
+  indicator: csxh.tro_cap_tien
+- row: vhxh.gia_dinh_van_hoa
+  column: Giá trị
+  indicator: vhxh.gia_dinh_van_hoa
+- row: vhxh.viec_lam_moi
+  column: Giá trị
+  indicator: vhxh.viec_lam_moi
+- row: vhxh.the_bhyt
+  column: Giá trị
+  indicator: vhxh.the_bhyt

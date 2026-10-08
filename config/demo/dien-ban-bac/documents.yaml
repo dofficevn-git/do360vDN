@@ -1,0 +1,86 @@
+# Sổ văn bản QLVB (giả lập), lịch công tác, việc giao, lời dẫn báo cáo — bộ demo Phường Điện Bàn Bắc.
+# Văn bản đến có nguoi_xu_ly → đồng bộ QLVB sinh việc xử lý (hoàn thành khi có ngay_hoan_thanh) → tính KPI văn bản đúng hạn.
+
+documents:
+  - { direction: den, so_ky_hieu: "1250/STC-NS",    ngay: "2026-03-10", loai: "Công văn", trich_yeu: "V/v hướng dẫn xây dựng và chấp hành dự toán ngân sách năm 2026", nguoi_xu_ly: kinhte, han_xu_ly: "2026-03-25", ngay_hoan_thanh: "2026-03-20" }
+  - { direction: di,  so_ky_hieu: "118/QĐ-UBND",    ngay: "2026-04-14", loai: "Quyết định", trich_yeu: "V/v công bố công khai dự toán ngân sách phường năm 2026", nguoi_ky: "Chủ tịch UBND phường" }
+  - { direction: den, so_ky_hieu: "2210/UBND-KT",   ngay: "2026-05-04", loai: "Công văn", trich_yeu: "V/v đôn đốc giải ngân vốn đầu tư công năm 2026", nguoi_xu_ly: kinhte.truong, han_xu_ly: "2026-05-20", ngay_hoan_thanh: "2026-05-18" }
+  - { direction: den, so_ky_hieu: "3312/SNV-CCHC",  ngay: "2026-06-02", loai: "Công văn", trich_yeu: "V/v rà soát, đơn giản hoá thủ tục hành chính tại Bộ phận Một cửa", nguoi_xu_ly: motcua.truong, han_xu_ly: "2026-06-20", ngay_hoan_thanh: "2026-06-25" }
+  - { direction: di,  so_ky_hieu: "1501/UBND",      ngay: "2026-06-23", loai: "Công văn", trich_yeu: "V/v tăng cường quản lý trật tự xây dựng, vệ sinh môi trường trên địa bàn phường", nguoi_ky: "Chủ tịch UBND phường" }
+  - { direction: den, so_ky_hieu: "4120/UBND-VX",   ngay: "2026-07-07", loai: "Công văn", trich_yeu: "V/v triển khai tiêm chủng mở rộng đợt 2 năm 2026", nguoi_xu_ly: yte, han_xu_ly: "2026-07-25", ngay_hoan_thanh: "2026-07-22" }
+  - { direction: den, so_ky_hieu: "4455/STP-HT",    ngay: "2026-07-15", loai: "Công văn", trich_yeu: "V/v chấn chỉnh công tác đăng ký, quản lý hộ tịch", nguoi_xu_ly: vanphong, han_xu_ly: "2026-07-31", ngay_hoan_thanh: "2026-07-29" }
+  - { direction: di,  so_ky_hieu: "197/KH-UBND",    ngay: "2026-07-20", loai: "Kế hoạch", trich_yeu: "Kế hoạch tiêm chủng mở rộng đợt 2 năm 2026 trên địa bàn phường", nguoi_ky: "Phó Chủ tịch UBND phường" }
+  - { direction: den, so_ky_hieu: "5021/CATP-PV01", ngay: "2026-08-05", loai: "Công văn", trich_yeu: "V/v tăng cường bảo đảm an ninh trật tự dịp Quốc khánh 2/9", nguoi_xu_ly: congan.truong, han_xu_ly: "2026-08-25", ngay_hoan_thanh: "2026-08-24" }
+  - { direction: den, so_ky_hieu: "5530/UBND-TH",   ngay: "2026-08-20", loai: "Công văn", trich_yeu: "V/v báo cáo kết quả thực hiện nhiệm vụ 9 tháng đầu năm 2026", nguoi_xu_ly: vanphong, han_xu_ly: "2026-09-12", ngay_hoan_thanh: "2026-09-10" }
+  - { direction: di,  so_ky_hieu: "2044/UBND-VP",   ngay: "2026-08-28", loai: "Công văn", trich_yeu: "V/v chốt số liệu 9 tháng phục vụ xây dựng báo cáo kinh tế - xã hội", nguoi_ky: "Chánh Văn phòng" }
+  - { direction: den, so_ky_hieu: "6102/SLĐTBXH-BTXH", ngay: "2026-09-03", loai: "Công văn", trich_yeu: "V/v rà soát hộ nghèo, hộ cận nghèo cuối năm 2026", nguoi_xu_ly: vhxh, han_xu_ly: "2026-09-30" }
+  - { direction: di,  so_ky_hieu: "253/KH-UBND",    ngay: "2026-09-08", loai: "Kế hoạch", trich_yeu: "Kế hoạch phòng, chống dịch bệnh mùa mưa bão năm 2026", nguoi_ky: "Chủ tịch UBND phường" }
+  - { direction: den, so_ky_hieu: "6540/UBND-NC",   ngay: "2026-09-22", loai: "Công văn", trich_yeu: "V/v giải quyết dứt điểm đơn thư tồn đọng trước 15/10", nguoi_xu_ly: congan, han_xu_ly: "2026-10-15" }
+  - { direction: den, so_ky_hieu: "6811/STC-NS",    ngay: "2026-09-29", loai: "Công văn", trich_yeu: "V/v chuẩn bị quyết toán ngân sách năm 2026", nguoi_xu_ly: kinhte, han_xu_ly: "2026-10-20" }
+
+schedule:
+  - { date: "2026-09-16", time: "08:00", title: "Họp giao ban kinh tế - xã hội 9 tháng đầu năm", location: "Hội trường UBND phường" }
+  - { date: "2026-09-25", time: "14:00", title: "Làm việc với Phòng Tài chính thành phố về quyết toán ngân sách", location: "Phòng họp số 2" }
+  - { date: "2026-10-08", time: "08:00", title: "Họp triển khai nhiệm vụ trọng tâm quý IV", location: "Hội trường UBND phường" }
+
+# Việc giao (ngoài việc do QLVB sinh). due: số ngày so với ngày seed (âm = đã quá hạn). from_report: lấy từ "Nhiệm vụ kỳ tới" của báo cáo 9 tháng.
+tasks:
+  - { by: chutich, to: kinhte.truong, title: "Rà soát tiến độ giải ngân 14 công trình, báo cáo Chủ tịch trước 15/10", due: 9, priority: high, from_report: true, target: tai_chinh.giai_ngan, target_value: 240000000000 }
+  - { by: chutich, to: kinhte.truong, title: "Giải quyết 3 hộ chưa nhận bồi thường GPMB kè Phong Nhị", due: 12, priority: high, object: DA-002 }
+  - { by: vanphong, to: kinhte, title: "Trình điều chỉnh thiết kế tuyến cống thoát nước Thanh Quýt", due: -4, priority: high, object: DA-004 }
+  - { by: chutich, to: congan.truong, title: "Giải quyết dứt điểm 11 đơn thư đang xử lý trước 15/10", due: 9, priority: high, from_report: true }
+  - { by: chutich, to: vhxh, title: "Hoàn thành rà soát hộ nghèo, hộ cận nghèo cuối năm", due: -6, priority: high, from_report: true }
+  - { by: vanphong, to: motcua, title: "Xuất báo cáo một cửa tháng từ Hệ thống TTHC, nộp lên DO360 trước ngày 3 hằng tháng", due: 25, priority: normal }
+  - { by: vanphong, to: kinhte, title: "Nộp số thu chi ngân sách tháng (sổ kế toán) cho Văn phòng", due: -2, priority: high }
+  - { by: vanphong, to: yte.nv, title: "Cập nhật số tiêm chủng mở rộng tuần 40", due: 2, priority: normal }
+  - { by: vanphong, to: quansu, title: "Báo cáo kết quả huấn luyện dân quân năm 2026", due: 12, priority: normal }
+  - { by: chutich, to: vanphong, title: "Chuẩn bị nội dung họp giao ban quý IV", due: 1, priority: high }
+  - { by: vanphong, to: congan, title: "Đối chiếu sổ tiếp công dân với phần mềm trước khi nộp số tháng", due: 4, priority: normal }
+  - { by: chutich, to: kinhte.truong, title: "Tham mưu phương án sử dụng nguồn tăng thu ngân sách", due: -10, priority: normal, done: true }
+  - { by: vanphong, to: motcua.truong, title: "Niêm yết công khai 12 thủ tục mới sửa đổi tại Bộ phận Một cửa", due: -15, priority: normal, done: true }
+  - { by: vanphong, to: vhxh, title: "Chi trả trợ cấp xã hội tháng 9 cho 1.650 lượt đối tượng", due: -20, priority: high, done: true }
+  - { by: chutich, to: yte, title: "Triển khai kế hoạch phòng chống dịch mùa mưa bão (KH 253)", due: 15, priority: normal }
+  - { by: vanphong, to: kinhte, title: "Kiểm tra lại số 'Tổng chi ngân sách' trên báo cáo PDF tháng 8 (dấu thập phân)", due: -30, priority: normal, done: true }
+  - { by: chutich, to: congan.truong, title: "Bảo đảm an ninh trật tự dịp lễ 2/9", due: -35, priority: high, done: true }
+
+# Lời dẫn (Văn phòng biên tập). Không nêu số ngoài bộ số của kỳ — hậu kiểm sẽ chặn.
+narratives:
+  "2026-6M":
+    chi_dao.loi_dan: >
+      Trong 6 tháng đầu năm 2026, UBND phường tập trung chỉ đạo thực hiện các nhiệm vụ trọng tâm theo Nghị quyết của Đảng uỷ,
+      HĐND phường và chỉ đạo của UBND thành phố; duy trì nền nếp giao ban tuần, kiểm tra tiến độ từng lĩnh vực; kịp thời ban hành
+      văn bản chỉ đạo về ngân sách, đầu tư công, trật tự đô thị và an sinh xã hội.
+    kinh_te.loi_dan: >
+      Kinh tế trên địa bàn trong 6 tháng đầu năm 2026 tiếp tục ổn định; thu, chi ngân sách bám sát dự toán được giao; các công trình,
+      dự án được đôn đốc bảo đảm tiến độ giải ngân; công tác quản lý trật tự xây dựng, vệ sinh môi trường được tăng cường.
+    vhxh.loi_dan: >
+      Các chính sách an sinh xã hội được thực hiện đầy đủ, kịp thời; công tác y tế dự phòng, tiêm chủng mở rộng và chăm sóc sức khoẻ
+      ban đầu được duy trì; phong trào văn hoá, thể thao cơ sở có bước phát triển.
+    noi_chinh.loi_dan: >
+      Công tác tư pháp, hộ tịch, tiếp công dân, cải cách hành chính và bảo đảm an ninh trật tự được triển khai đồng bộ; Bộ phận Một cửa
+      duy trì giải quyết hồ sơ đúng hạn; tình hình an ninh chính trị, trật tự an toàn xã hội cơ bản ổn định.
+    nhiem_vu.ky_toi: >
+      Tập trung hoàn thành các chỉ tiêu kinh tế - xã hội 6 tháng cuối năm; đẩy nhanh giải ngân vốn đầu tư công; giải quyết dứt điểm
+      đơn thư tồn đọng; chuẩn bị tốt công tác tuyển quân và các nhiệm vụ quốc phòng, an ninh cuối năm.
+  "2026-9M":
+    # Lỗi thật số 3: Văn phòng dán lại lời kỳ 6 tháng còn nguyên "6 tháng đầu năm" → gate nhóm Nhất quán kỳ cảnh báo tại đoạn
+    kinh_te.loi_dan_wrong: >
+      Kinh tế trên địa bàn trong 6 tháng đầu năm 2026 tiếp tục ổn định; thu, chi ngân sách bám sát dự toán được giao; các công trình,
+      dự án được đôn đốc bảo đảm tiến độ giải ngân.
+    chi_dao.loi_dan: >
+      Trong 9 tháng đầu năm 2026, UBND phường tập trung chỉ đạo thực hiện các nhiệm vụ trọng tâm theo kế hoạch năm và chỉ đạo của
+      UBND thành phố; duy trì nền nếp giao ban, kiểm tra, đôn đốc tiến độ từng lĩnh vực; chỉ đạo chốt số liệu phục vụ báo cáo theo
+      Công văn 2044/UBND-VP.
+    kinh_te.loi_dan: >
+      Kinh tế trên địa bàn trong 9 tháng đầu năm 2026 tiếp tục ổn định; thu ngân sách đạt tiến độ khá so với dự toán, chi ngân sách
+      bảo đảm đúng chế độ; các công trình, dự án được đôn đốc giải ngân theo Công văn 2210/UBND-KT của UBND thành phố.
+    vhxh.loi_dan: >
+      Các chính sách an sinh xã hội được chi trả đầy đủ, kịp thời; công tác y tế dự phòng, tiêm chủng mở rộng đợt 2 theo Kế hoạch
+      197/KH-UBND được triển khai đúng tiến độ; đã ban hành Kế hoạch 253/KH-UBND về phòng, chống dịch bệnh mùa mưa bão.
+    noi_chinh.loi_dan: >
+      Công tác tư pháp, hộ tịch, tiếp công dân, cải cách hành chính và bảo đảm an ninh trật tự được triển khai đồng bộ; Bộ phận Một cửa
+      giữ tỷ lệ hồ sơ giải quyết đúng hạn cao; an ninh trật tự dịp Quốc khánh được bảo đảm theo Công văn 5021/CATP-PV01.
+    nhiem_vu.ky_toi: >
+      Tập trung hoàn thành các chỉ tiêu chưa đạt kế hoạch năm, nhất là giải ngân vốn đầu tư công và giảm nghèo; giải quyết dứt điểm
+      đơn thư đang xử lý trước giữa tháng sau; rà soát hộ nghèo, hộ cận nghèo cuối năm; chuẩn bị quyết toán ngân sách và các nhiệm vụ
+      quốc phòng, an ninh cuối năm.

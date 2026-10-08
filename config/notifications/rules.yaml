@@ -1,0 +1,38 @@
+# Notification Engine + Security Gateway (Blueprint V0.5 mục 47.4–47.5, 65–69).
+# Nguyên tắc: thông tin điều hành luôn xuất phát từ DO360 → cổng phân loại → OA/nhóm chính danh; Zalo chỉ nhận payload tối thiểu;
+# chi tiết xem trên DO360 Web (deep link kiểm quyền lại). Không có Mini App trong kiến trúc đích.
+version: 1
+tiers:
+  critical:   { channels: [IN_APP, ZALO, ZALO_GROUP], description: "Quá hạn nghiêm trọng, chỉ tiêu bất thường, số bị cách ly nhiều" }
+  action:     { channels: [IN_APP, ZALO], description: "Việc cần xử lý / xác nhận của chính người nhận" }
+  important:  { channels: [IN_APP, ZALO_GROUP], description: "Báo cáo sẵn sàng, chốt kỳ, thay đổi quan trọng" }
+  info:       { channels: [IN_APP], description: "Cập nhật thông thường" }
+  digest:     { channels: [ZALO, ZALO_GROUP], description: "Tổng hợp đầu ngày" }
+rules:
+  - { event: TASK_ASSIGNED,        tier: action,    recipients: [assignee] }
+  - { event: TASK_DUE_SOON,        tier: action,    recipients: [assignee], when: "due_in_hours <= 48" }
+  - { event: TASK_OVERDUE,         tier: critical,  recipients: [assignee, assigner] }
+  - { event: FACT_EXTRACTED,       tier: action,    recipients: [dept_staff] }
+  - { event: FACT_QUARANTINED,     tier: critical,  recipients: [data_owner] }
+  - { event: PERIOD_REMIND,        tier: action,    recipients: [dept_staff, data_owner] }
+  - { event: REPORT_LOCKED,        tier: important, recipients: [leader, group:bao_cao] }
+  - { event: REPORT_SUBMITTED,     tier: action,    recipients: [leader] }
+  - { event: REPORT_SIGNED,        tier: important, recipients: [group:lanh_dao, group:bao_cao] }
+  - { event: DATA_STALE,           tier: important, recipients: [data_owner] }
+  - { event: PROJECT_ALERT,        tier: critical,  recipients: [data_owner, leader, group:du_an] }
+  - { event: DAILY_DIGEST,         tier: digest,    recipients: [leader, commune_admin, group:lanh_dao], at: "07:00" }
+# Cổng an toàn: payload chứa mẫu dưới đây → không gửi nội dung, thay bằng tin chung "Có việc cần xử lý, đăng nhập DO360 để xem".
+classification:
+  allowed_max: INTERNAL                 # PUBLIC < INTERNAL < CONFIDENTIAL < RESTRICTED
+  deny_patterns:
+    - { key: cccd,   label: Số định danh/CCCD,     regex: "\\b0\\d{11}\\b" }
+    - { key: phone,  label: Số điện thoại cá nhân, regex: "\\b0(3|5|7|8|9)\\d{8}\\b" }
+    - { key: email,  label: Email cá nhân,         regex: "[\\w.+-]+@[\\w-]+\\.[\\w.]+" }
+    - { key: secret, label: Bí mật nhà nước,       regex: "(?i)\\b(tuyệt mật|tối mật|mật)\\b" }
+    - { key: health, label: Hồ sơ sức khoẻ cá nhân, regex: "(?i)\\b(bệnh án|chẩn đoán|HIV|ung thư)\\b" }
+    - { key: bank,   label: Số tài khoản ngân hàng, regex: "\\b\\d{9,16}\\b" }
+  generic_text: "DO360: có việc mới cần bạn xử lý. Đăng nhập DO360 để xem chi tiết."
+  max_length: 600
+digest:
+  time: "07:00"
+  sections: [tasks_due_today, tasks_overdue, indicators_missing, projects_alert, report_progress, quarantine]

@@ -1,0 +1,118 @@
+# Luật bóc tách BIỂU MẪU EXCEL CHUẨN của bộ phận Phòng Kinh tế, Hạ tầng và Đô thị — SINH TỰ ĐỘNG bởi tools/make_forms.py, không sửa tay.
+# Khớp theo cột 'Mã chỉ tiêu' (nhãn hàng = mã) và cột 'Giá trị'. Đổi danh mục → chạy lại script và tăng version.
+source_type: bieu_mau_kinh_te_xlsx
+version: 2
+file_kind: xlsx
+domain: null
+match:
+  sheet: Biểu mẫu
+  header_contains: Mã chỉ tiêu
+map:
+- row: kinh_te.hkd_ho_so_tiep_nhan
+  column: Giá trị
+  indicator: kinh_te.hkd_ho_so_tiep_nhan
+- row: kinh_te.hkd_ho_so_chap_thuan
+  column: Giá trị
+  indicator: kinh_te.hkd_ho_so_chap_thuan
+- row: kinh_te.hkd_tong
+  column: Giá trị
+  indicator: kinh_te.hkd_tong
+- row: kinh_te.hkd_cds_tiep_can
+  column: Giá trị
+  indicator: kinh_te.hkd_cds_tiep_can
+- row: kinh_te.hkd_cai_ung_dung
+  column: Giá trị
+  indicator: kinh_te.hkd_cai_ung_dung
+- row: kinh_te.doanh_nghiep_moi
+  column: Giá trị
+  indicator: kinh_te.doanh_nghiep_moi
+- row: kt.tiem_phong_gia_suc
+  column: Giá trị
+  indicator: kt.tiem_phong_gia_suc
+- row: kt.dien_tich_gieo_trong
+  column: Giá trị
+  indicator: kt.dien_tich_gieo_trong
+- row: kt.thu_phi_ve_sinh
+  column: Giá trị
+  indicator: kt.thu_phi_ve_sinh
+- row: kt.ty_le_rac_thu_gom
+  column: Giá trị
+  indicator: kt.ty_le_rac_thu_gom
+- row: kt.vi_pham_xay_dung
+  column: Giá trị
+  indicator: kt.vi_pham_xay_dung
+- row: qh.ho_so_tiep_nhan
+  column: Giá trị
+  indicator: qh.ho_so_tiep_nhan
+- row: qh.ho_so_dung_han
+  column: Giá trị
+  indicator: qh.ho_so_dung_han
+- row: qh.ho_so_qua_han
+  column: Giá trị
+  indicator: qh.ho_so_qua_han
+- row: xd.ho_so_tiep_nhan
+  column: Giá trị
+  indicator: xd.ho_so_tiep_nhan
+- row: xd.ho_so_da_giai_quyet
+  column: Giá trị
+  indicator: xd.ho_so_da_giai_quyet
+- row: xd.ho_so_dang_xu_ly
+  column: Giá trị
+  indicator: xd.ho_so_dang_xu_ly
+- row: gpmb.phuong_an
+  column: Giá trị
+  indicator: gpmb.phuong_an
+- row: gpmb.gia_tri_boi_thuong
+  column: Giá trị
+  indicator: gpmb.gia_tri_boi_thuong
+- row: tai_chinh.thu_ns
+  column: Giá trị
+  indicator: tai_chinh.thu_ns
+- row: tai_chinh.thu_noi_dia
+  column: Giá trị
+  indicator: tai_chinh.thu_noi_dia
+- row: tai_chinh.thu_ns_xa_huong
+  column: Giá trị
+  indicator: tai_chinh.thu_ns_xa_huong
+- row: tai_chinh.chi_ns
+  column: Giá trị
+  indicator: tai_chinh.chi_ns
+- row: tai_chinh.chi_thuong_xuyen
+  column: Giá trị
+  indicator: tai_chinh.chi_thuong_xuyen
+- row: tai_chinh.chi_dau_tu
+  column: Giá trị
+  indicator: tai_chinh.chi_dau_tu
+- row: tai_chinh.giai_ngan
+  column: Giá trị
+  indicator: tai_chinh.giai_ngan
+- row: tai_chinh.so_du_an
+  column: Giá trị
+  indicator: tai_chinh.so_du_an
+- row: tai_chinh.so_du_an_hoan_thanh
+  column: Giá trị
+  indicator: tai_chinh.so_du_an_hoan_thanh
+- row: tnmt.ho_so_tiep_nhan
+  column: Giá trị
+  indicator: tnmt.ho_so_tiep_nhan
+- row: tnmt.ho_so_da_giai_quyet
+  column: Giá trị
+  indicator: tnmt.ho_so_da_giai_quyet
+- row: tnmt.ho_so_tre_han
+  column: Giá trị
+  indicator: tnmt.ho_so_tre_han
+- row: tnmt.ho_so_dang_xu_ly
+  column: Giá trị
+  indicator: tnmt.ho_so_dang_xu_ly
+- row: tnmt.vi_pham_dat_dai
+  column: Giá trị
+  indicator: tnmt.vi_pham_dat_dai
+- row: tnmt.vsmt_ho_nop
+  column: Giá trị
+  indicator: tnmt.vsmt_ho_nop
+- row: tnmt.vsmt_ty_le
+  column: Giá trị
+  indicator: tnmt.vsmt_ty_le
+- row: tnmt.vsmt_tien
+  column: Giá trị
+  indicator: tnmt.vsmt_tien

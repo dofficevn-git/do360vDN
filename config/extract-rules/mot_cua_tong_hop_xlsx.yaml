@@ -1,0 +1,20 @@
+# Luật bóc tách: file Excel tổng hợp xuất từ hệ thống một cửa.
+# Bố cục theo ví dụ trong tài liệu thiết kế — CHỜ đối chiếu với file export thật của xã thí điểm.
+source_type: mot_cua_tong_hop_xlsx
+version: 1
+file_kind: xlsx
+domain: tthc
+match:
+  sheet: "Tổng hợp"
+  header_contains: "Trong kỳ"
+map:
+  - {row: "Tổng số hồ sơ tiếp nhận",  column: "Trong kỳ", indicator: tthc.tiep_nhan}
+  - {row: "Đã giải quyết",            column: "Trong kỳ", indicator: tthc.giai_quyet}
+  - {row: "Đã giải quyết trước hạn",  column: "Trong kỳ", indicator: tthc.truoc_han}
+  - {row: "Đã giải quyết quá hạn",    column: "Trong kỳ", indicator: tthc.qua_han}
+  - {row: "Đang giải quyết",          column: "Trong kỳ", indicator: tthc.dang_xu_ly}
+  - {row: "Tỷ lệ hồ sơ trực tuyến",   column: "Trong kỳ", indicator: tthc.ty_le_truc_tuyen}
+# Từ điển nhãn: các cách ghi khác nhau của cùng một dòng
+labels:
+  "Đã giải quyết": ["Đã trả kết quả", "Đã giải quyết xong"]
+  "Đang giải quyết": ["Đang trong thời hạn", "Hồ sơ đang xử lý"]

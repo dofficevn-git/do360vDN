@@ -1,0 +1,17 @@
+# Report Spec: Báo cáo kết quả đánh giá, xếp loại cán bộ, công chức theo hiệu quả công việc (KPI).
+# Mẫu v1 dựng từ 3 chỉ tiêu tổng hợp do module KPI/DO360 cấp; bổ sung slot khi có mẫu báo cáo theo QĐ 761/QĐ-UBND.
+spec_code: kpi_dinh_ky
+version: 1
+report_type: kpi
+title: Báo cáo kết quả đánh giá KPI cán bộ, công chức
+period_types: [month, quarter, half, nine_months, year]
+slots:
+  - slot_id: kpi.tong_hop
+    section: "I.1"
+    slot_type: metric_sentence
+    indicators: [kpi.so_can_bo_danh_gia, kpi.diem_trung_binh, kpi.ty_le_viec_dung_han]
+    template: >
+      trong {ky}, đơn vị đã đánh giá {kpi.so_can_bo_danh_gia} cán bộ, công chức; điểm KPI trung bình đạt
+      {kpi.diem_trung_binh} điểm; tỷ lệ nhiệm vụ hoàn thành đúng hạn toàn đơn vị đạt {kpi.ty_le_viec_dung_han}
+    checks: []
+    owner_dept: van_phong

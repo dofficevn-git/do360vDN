@@ -1,0 +1,44 @@
+# Danh mục chỉ tiêu — lĩnh vực Thủ tục hành chính (một cửa)
+# Nguồn: mục II.3.4 Báo cáo 436/BC-UBND (ví dụ trong tài liệu thiết kế Tami360, mục 4 "Ví dụ một slot").
+# Mã official_code để trống: CHỜ đối chiếu với biểu mẫu thống kê ngành / QĐ 264 Đà Nẵng.
+domain: tthc
+owner_dept: hanh_chinh_cong
+indicators:
+  - id: tthc.tiep_nhan
+    name: Tổng số hồ sơ tiếp nhận
+    unit: hồ sơ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: tthc.giai_quyet
+    name: Số hồ sơ đã giải quyết
+    unit: hồ sơ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: tthc.truoc_han
+    name: Số hồ sơ giải quyết trước hạn, đúng hạn
+    unit: hồ sơ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+    parent: tthc.giai_quyet
+  - id: tthc.qua_han
+    name: Số hồ sơ giải quyết quá hạn
+    unit: hồ sơ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+    parent: tthc.giai_quyet
+  - id: tthc.dang_xu_ly
+    name: Số hồ sơ đang trong thời hạn giải quyết
+    unit: hồ sơ
+    value_type: integer
+    aggregation: point_in_time
+    capture_method: export
+  - id: tthc.ty_le_truc_tuyen
+    name: Tỷ lệ hồ sơ tiếp nhận trực tuyến
+    unit: "%"
+    value_type: percent
+    aggregation: point_in_time
+    capture_method: export

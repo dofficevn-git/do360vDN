@@ -1,0 +1,16 @@
+# Luật bóc tách: bảng tổng hợp thu chi xuất từ phần mềm kế toán (Excel), đơn vị đồng — bậc "file xuất".
+source_type: so_ke_toan_xlsx
+version: 1
+file_kind: xlsx
+domain: tai_chinh
+match:
+  sheet: "Thu chi"
+  header_contains: "Thực hiện"
+map:
+  - {row: "Tổng thu ngân sách trên địa bàn", column: "Thực hiện", indicator: tai_chinh.thu_ns}
+  - {row: "Thu nội địa",                    column: "Thực hiện", indicator: tai_chinh.thu_noi_dia}
+  - {row: "Thu ngân sách phường được hưởng", column: "Thực hiện", indicator: tai_chinh.thu_ns_xa_huong}
+  - {row: "Tổng chi ngân sách",              column: "Thực hiện", indicator: tai_chinh.chi_ns}
+  - {row: "Chi thường xuyên",                column: "Thực hiện", indicator: tai_chinh.chi_thuong_xuyen}
+  - {row: "Chi đầu tư phát triển",           column: "Thực hiện", indicator: tai_chinh.chi_dau_tu}
+  - {row: "Giải ngân vốn đầu tư công",       column: "Thực hiện", indicator: tai_chinh.giai_ngan}

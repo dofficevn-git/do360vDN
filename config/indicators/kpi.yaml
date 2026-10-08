@@ -1,0 +1,23 @@
+# Chỉ tiêu tổng hợp KPI cấp đơn vị — do KpiService.publish() đẩy vào kho (capture api, nguồn kpi),
+# để báo cáo KPI dùng cùng bộ sinh báo cáo (Report Spec kpi_dinh_ky).
+domain: kpi
+owner_dept: van_phong
+indicators:
+  - id: kpi.so_can_bo_danh_gia
+    name: Số cán bộ, công chức được đánh giá KPI
+    unit: người
+    value_type: integer
+    aggregation: point_in_time
+    capture_method: api
+  - id: kpi.diem_trung_binh
+    name: Điểm KPI trung bình của đơn vị
+    unit: điểm
+    value_type: decimal
+    aggregation: point_in_time
+    capture_method: api
+  - id: kpi.ty_le_viec_dung_han
+    name: Tỷ lệ nhiệm vụ hoàn thành đúng hạn toàn đơn vị
+    unit: "%"
+    value_type: percent
+    aggregation: point_in_time
+    capture_method: api

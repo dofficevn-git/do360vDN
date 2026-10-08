@@ -1,0 +1,5 @@
+# OCR cho ảnh / PDF scan (Tabot bước 1, chạy CPU). Nặng (~1 GB) nên tách riêng:
+#   pip install -r requirements-ocr.txt
+# Không cài thì /extract vẫn đọc Excel/Word/PDF có lớp chữ; ảnh và scan trả 422 "OCR chưa cài".
+paddlepaddle==3.3.1
+paddleocr==2.8.1

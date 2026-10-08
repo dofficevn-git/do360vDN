@@ -1,0 +1,16 @@
+# Luật bóc tách: sổ tiếp công dân, xử lý đơn thư xuất từ phần mềm (Excel) — bậc "file xuất", tin cậy hơn báo cáo Word.
+source_type: so_tiep_dan_xlsx
+version: 1
+file_kind: xlsx
+domain: noi_chinh
+match:
+  sheet: "Tổng hợp"
+  header_contains: "Lũy kế"
+map:
+  - {row: "Lượt tiếp công dân",              column: "Lũy kế", indicator: tiep_dan.luot_tiep}
+  - {row: "Đơn thư tiếp nhận",               column: "Lũy kế", indicator: tiep_dan.don_tiep_nhan}
+  - {row: "Đơn thư đã giải quyết",           column: "Lũy kế", indicator: tiep_dan.don_da_giai_quyet}
+  - {row: "Khiếu nại đã giải quyết",         column: "Lũy kế", indicator: tiep_dan.gq_khieu_nai}
+  - {row: "Tố cáo đã giải quyết",            column: "Lũy kế", indicator: tiep_dan.gq_to_cao}
+  - {row: "Kiến nghị, phản ánh đã giải quyết", column: "Lũy kế", indicator: tiep_dan.gq_kien_nghi}
+  - {row: "Đơn thư đang xử lý",              column: "Lũy kế", indicator: tiep_dan.don_dang_xu_ly}

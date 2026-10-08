@@ -1,0 +1,112 @@
+# Lĩnh vực: Công tác chỉ đạo, điều hành (mục I báo cáo định kỳ). Nguồn: phần mềm QLVB (sổ văn bản đi/đến), phần mềm giao việc, 1022/IOC.
+# Số mẫu Báo cáo 436/BC-UBND (9 tháng 2026): 17.939 văn bản đến; 6.012 văn bản đi gồm 1.644 Quyết định, 417 Báo cáo, 2.174 Công văn,
+# 143 Tờ trình, 265 Kế hoạch, 872 Thông báo, 424 Giấy mời, 73 Phiếu chuyển. official_code chờ QĐ 264/QĐ-UBND.
+domain: chi_dao
+owner_dept: van_phong
+regulation_ref: Báo cáo 436/BC-UBND (mục I)
+indicators:
+  - id: chi_dao.vb_den
+    name: Văn bản đến
+    unit: văn bản
+    value_type: integer
+    aggregation: cumulative
+    capture_method: api
+  - id: chi_dao.vb_di
+    name: Văn bản đi
+    unit: văn bản
+    value_type: integer
+    aggregation: cumulative
+    capture_method: api
+  - id: chi_dao.vb_di_quyet_dinh
+    name: Quyết định đã ban hành
+    unit: văn bản
+    value_type: integer
+    aggregation: cumulative
+    capture_method: api
+    parent: chi_dao.vb_di
+  - id: chi_dao.vb_di_bao_cao
+    name: Báo cáo đã ban hành
+    unit: văn bản
+    value_type: integer
+    aggregation: cumulative
+    capture_method: api
+    parent: chi_dao.vb_di
+  - id: chi_dao.vb_di_cong_van
+    name: Công văn đã ban hành
+    unit: văn bản
+    value_type: integer
+    aggregation: cumulative
+    capture_method: api
+    parent: chi_dao.vb_di
+  - id: chi_dao.vb_di_to_trinh
+    name: Tờ trình đã ban hành
+    unit: văn bản
+    value_type: integer
+    aggregation: cumulative
+    capture_method: api
+    parent: chi_dao.vb_di
+  - id: chi_dao.vb_di_ke_hoach
+    name: Kế hoạch đã ban hành
+    unit: văn bản
+    value_type: integer
+    aggregation: cumulative
+    capture_method: api
+    parent: chi_dao.vb_di
+  - id: chi_dao.vb_di_thong_bao
+    name: Thông báo đã ban hành
+    unit: văn bản
+    value_type: integer
+    aggregation: cumulative
+    capture_method: api
+    parent: chi_dao.vb_di
+  - id: chi_dao.vb_di_giay_moi
+    name: Giấy mời đã ban hành
+    unit: văn bản
+    value_type: integer
+    aggregation: cumulative
+    capture_method: api
+    parent: chi_dao.vb_di
+  - id: chi_dao.vb_di_phieu_chuyen
+    name: Phiếu chuyển đã ban hành
+    unit: văn bản
+    value_type: integer
+    aggregation: cumulative
+    capture_method: api
+    parent: chi_dao.vb_di
+  - id: chi_dao.nhiem_vu_giao
+    name: Nhiệm vụ cấp trên và UBND giao
+    unit: nhiệm vụ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: api
+    definition: Dữ liệu DẪN XUẤT (DERIVED) từ sổ giao việc DO360 — POST /admin/facts/derive tính lại theo kỳ.
+  - id: chi_dao.nhiem_vu_hoan_thanh
+    name: Nhiệm vụ đã hoàn thành
+    unit: nhiệm vụ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: api
+  - id: chi_dao.nhiem_vu_qua_han
+    name: Nhiệm vụ quá hạn
+    unit: nhiệm vụ
+    value_type: integer
+    aggregation: point_in_time
+    capture_method: api
+  - id: chi_dao.phan_anh_tiep_nhan
+    name: Phản ánh, kiến nghị tiếp nhận qua 1022/IOC
+    unit: phản ánh
+    value_type: integer
+    aggregation: cumulative
+    capture_method: api
+  - id: chi_dao.phan_anh_da_xu_ly
+    name: Phản ánh, kiến nghị đã xử lý
+    unit: phản ánh
+    value_type: integer
+    aggregation: cumulative
+    capture_method: api
+  - id: chi_dao.phan_anh_qua_han
+    name: Phản ánh, kiến nghị xử lý quá hạn
+    unit: phản ánh
+    value_type: integer
+    aggregation: cumulative
+    capture_method: api

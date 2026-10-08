@@ -1,0 +1,115 @@
+# Object Dictionary V0.3 — 10 Object lõi MVP (Blueprint V0.5 mục 7, 33) + Source–Ownership Matrix (mục 6).
+# ownership: MASTER (nguồn chính thức bên ngoài, DO360 không tạo lại) · REFERENCE (giữ ID + trường cần dùng) ·
+#            LOCAL_MASTER (xã/phường tạo lập, DO360 là nơi quản lý chính) · DERIVED (DO360 tính/tổng hợp, có lineage).
+# storage: builtin = đã có bảng riêng (dim_tenant, departments, qlvb_document, tasks, report_run, dim_indicator);
+#          dim_object = lưu trong bảng dim_object (attributes JSONB theo `fields`).
+# freshness_days: quá số ngày không cập nhật → SỐNG = stale. indicators: chỉ tiêu tổng hợp liên quan (Object 360 hiện giá trị kỳ).
+version: 0.3
+types:
+  - key: don_vi
+    name: Đơn vị hành chính
+    ownership: MASTER
+    master_source: Danh mục ĐVHC (QĐ 19/2025/QĐ-TTg) — dim_tenant
+    storage: builtin
+    builtin_table: dim_tenant
+    freshness_days: 365
+  - key: dia_ban
+    name: Địa bàn, tổ dân phố
+    ownership: REFERENCE
+    master_source: CSDL dân cư / danh mục tổ dân phố của Thành phố
+    storage: dim_object
+    code_prefix: TDP
+    freshness_days: 180
+    fields:
+      - { key: so_ho, name: Số hộ, type: integer }
+      - { key: nhan_khau, name: Nhân khẩu, type: integer }
+      - { key: to_truong, name: Tổ trưởng, type: string }
+    relations_out: [LOCATED_IN]
+    indicators: [an_ninh.thuong_tru, an_ninh.tam_tru, csxh.ho_ngheo]
+  - key: to_chuc
+    name: Tổ chức, doanh nghiệp
+    ownership: REFERENCE
+    master_source: CSDL quốc gia về đăng ký doanh nghiệp (mã số thuế là master_id)
+    storage: dim_object
+    code_prefix: TC
+    freshness_days: 180
+    fields:
+      - { key: ma_so_thue, name: Mã số thuế, type: string, identity: true }
+      - { key: dia_chi, name: Địa chỉ, type: string }
+      - { key: loai_hinh, name: Loại hình, type: string }
+      - { key: nguoi_dai_dien, name: Người đại diện, type: string }
+    indicators: [kinh_te.doanh_nghiep_moi]
+  - key: ho_kinh_doanh
+    name: Hộ kinh doanh
+    ownership: REFERENCE
+    master_source: Hệ thống đăng ký hộ kinh doanh (mã số HKD là master_id); sự kiện CĐS là LOCAL_MASTER
+    storage: dim_object
+    code_prefix: HKD
+    freshness_days: 120
+    fields:
+      - { key: ma_so_hkd, name: Mã số hộ kinh doanh, type: string, identity: true }
+      - { key: nganh_nghe, name: Ngành nghề, type: string }
+      - { key: dia_chi, name: Địa chỉ, type: string }
+      - { key: chu_ho, name: Chủ hộ, type: string }
+    events: [tiep_can_cds, cai_ung_dung, dang_ky_moi, ngung_hoat_dong]
+    relations_out: [LOCATED_IN]
+    indicators: [kinh_te.hkd_tong, kinh_te.hkd_cds_tiep_can, kinh_te.hkd_cai_ung_dung]
+  - key: du_an
+    name: Dự án, công trình
+    ownership: LOCAL_MASTER
+    master_source: UBND phường (chủ đầu tư) — sổ theo dõi dự án của Phòng Kinh tế
+    storage: dim_object
+    code_prefix: DA
+    freshness_days: 14
+    fields:
+      - { key: tong_muc, name: Tổng mức đầu tư, type: money }
+      - { key: ke_hoach_von, name: Kế hoạch vốn năm, type: money }
+      - { key: giai_ngan, name: Đã giải ngân, type: money }
+      - { key: tien_do, name: Tiến độ thực hiện, type: percent }
+      - { key: gpmb, name: Giải phóng mặt bằng, type: percent }
+      - { key: han_hoan_thanh, name: Hạn hoàn thành, type: date }
+      - { key: vuong_mac, name: Vướng mắc, type: string }
+    events: [phe_duyet, phan_bo_von, khoi_cong, ky_hop_dong, giai_ngan, gpmb, dieu_chinh, kiem_tra, nghiem_thu, hoan_thanh]
+    relations_out: [HAS_CONTRACTOR, LOCATED_AT, USES_FUNDING, AFFECTS_LAND]
+    indicators: [tai_chinh.giai_ngan, tai_chinh.so_du_an, tai_chinh.so_du_an_hoan_thanh]
+    alerts:
+      - { key: cham_tien_do, name: Chậm tiến độ, rule: "tien_do < expected_by_deadline - 15" }
+      - { key: giai_ngan_thap, name: Giải ngân thấp, rule: "giai_ngan / ke_hoach_von < 0.5 after Q3" }
+      - { key: stale, name: Quá hạn cập nhật, rule: "refreshed_at older than freshness_days" }
+  - key: van_ban
+    name: Văn bản
+    ownership: MASTER
+    master_source: Hệ thống QLVB (LGSP Đà Nẵng) — qlvb_document
+    storage: builtin
+    builtin_table: qlvb_document
+    freshness_days: 1
+    events: [ban_hanh, tiep_nhan, xu_ly, hoan_thanh]
+  - key: ho_so
+    name: Hồ sơ thủ tục hành chính
+    ownership: MASTER
+    master_source: Hệ thống thông tin giải quyết TTHC của Thành phố (chỉ nhận số tổng hợp theo kỳ)
+    storage: aggregate_only
+    freshness_days: 1
+    indicators: [tthc.tiep_nhan, tthc.giai_quyet, tthc.qua_han, tthc.dang_xu_ly]
+  - key: nhiem_vu
+    name: Nhiệm vụ
+    ownership: LOCAL_MASTER
+    master_source: Sổ giao việc DO360 (tasks) — việc từ QLVB, kết luận họp, nhiệm vụ kỳ tới của báo cáo
+    storage: builtin
+    builtin_table: tasks
+    freshness_days: 7
+    events: [giao, bat_dau, hoan_thanh, huy]
+  - key: chi_tieu
+    name: Chỉ tiêu
+    ownership: DERIVED
+    master_source: Danh mục dim_indicator (config/indicators) + giá trị fact_indicator theo kỳ
+    storage: builtin
+    builtin_table: dim_indicator
+    freshness_days: 45
+  - key: bao_cao
+    name: Báo cáo
+    ownership: DERIVED
+    master_source: Góc nhìn trên kho số — report_run + snapshot đóng băng
+    storage: builtin
+    builtin_table: report_run
+    freshness_days: 45

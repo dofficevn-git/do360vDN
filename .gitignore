@@ -1,0 +1,45 @@
+node_modules/
+dist/
+build/
+.next/
+.env
+.env.local
+.env.development
+.env.production
+*.log
+.DS_Store
+Thumbs.db
+coverage/
+.nyc_output/
+*.tsbuildinfo
+
+# Python (services/reader)
+__pycache__/
+*.pyc
+.venv/
+
+# User uploads + persisted OA tokens (volume content)
+services/api/uploads/
+*.oa-tokens.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# File mau co the chua du lieu that cua don vi - chi dua vao git khi da duoc phep
+eval/private/
+eval/out/
+
+# Sao luu CSDL/MinIO va log health-check (infra/backup.sh, infra/healthcheck.sh)
+backups/
+infra/logs/
+
+# Sao lưu, kết quả đo, nhãn huấn luyện, dữ liệu thật, nhật ký — không đưa lên git
+backups/
+eval/out/
+eval/labels/*.jsonl
+eval/private/
+infra/logs/
+infra/.env
+*.bak*

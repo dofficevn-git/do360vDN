@@ -1,0 +1,88 @@
+# Bảng điều hành theo lĩnh vực (Blueprint V0.5 mục 50–51, 60–61). Mỗi thẻ chỉ tiêu hiện "Mục tiêu – Thực hiện – Rủi ro – Hành động":
+# kế hoạch (plan_target), thực hiện (fact hiện hành), tỷ lệ, xu hướng (so kỳ trước), ngày chốt, trạng thái, nguồn, phòng chủ, việc liên quan.
+# pair: [thực hiện, kế hoạch] khi kế hoạch cũng là chỉ tiêu trong kho (vd tiếp cận/tổng); plan: true → lấy kế hoạch năm.
+# roles: ai thấy khối này (mặc định mọi vai đọc được).
+version: 1
+domains:
+  - key: chi_dao
+    name: Chỉ đạo – Điều hành
+    nav: Điều hành
+    cards:
+      - { indicator: chi_dao.nhiem_vu_giao, pair_with: chi_dao.nhiem_vu_hoan_thanh, label: Nhiệm vụ hoàn thành / được giao }
+      - { indicator: chi_dao.nhiem_vu_qua_han, bad_if: ">0" }
+      - { indicator: chi_dao.vb_den }
+      - { indicator: chi_dao.vb_di, breakdown: [chi_dao.vb_di_quyet_dinh, chi_dao.vb_di_bao_cao, chi_dao.vb_di_cong_van, chi_dao.vb_di_to_trinh, chi_dao.vb_di_ke_hoach, chi_dao.vb_di_thong_bao, chi_dao.vb_di_giay_moi, chi_dao.vb_di_phieu_chuyen] }
+      - { indicator: chi_dao.phan_anh_tiep_nhan, pair_with: chi_dao.phan_anh_da_xu_ly, label: Phản ánh đã xử lý / tiếp nhận }
+      - { indicator: chi_dao.phan_anh_qua_han, bad_if: ">0" }
+  - key: kinh_te
+    name: Kinh tế
+    cards:
+      - { indicator: kinh_te.hkd_ho_so_tiep_nhan, pair_with: kinh_te.hkd_ho_so_chap_thuan, label: Hồ sơ HKD chấp thuận / tiếp nhận }
+      - { indicator: kinh_te.hkd_tong, pair_with: kinh_te.hkd_cds_tiep_can, label: HKD tiếp cận CĐS / tổng, drill: ho_kinh_doanh }
+      - { indicator: kinh_te.hkd_cai_ung_dung, drill: ho_kinh_doanh }
+      - { indicator: kinh_te.doanh_nghiep_moi }
+      - { indicator: kt.tiem_phong_gia_suc, plan: true }
+      - { indicator: kt.dien_tich_gieo_trong }
+  - key: quy_hoach_dau_tu
+    name: Quy hoạch – Đầu tư – Xây dựng – GPMB
+    cards:
+      - { indicator: tai_chinh.so_du_an, drill: du_an }
+      - { indicator: tai_chinh.giai_ngan, plan: true, drill: du_an }
+      - { indicator: tai_chinh.so_du_an_hoan_thanh, plan: true, drill: du_an }
+      - { indicator: qh.ho_so_tiep_nhan, pair_with: qh.ho_so_dung_han, label: Hồ sơ quy hoạch đúng hạn / tiếp nhận }
+      - { indicator: qh.ho_so_qua_han, bad_if: ">0" }
+      - { indicator: xd.ho_so_tiep_nhan, pair_with: xd.ho_so_da_giai_quyet, label: Hồ sơ xây dựng đã giải quyết / tiếp nhận }
+      - { indicator: gpmb.phuong_an }
+    objects: du_an
+  - key: tai_nguyen_mt
+    name: Tài nguyên – Môi trường
+    cards:
+      - { indicator: tnmt.ho_so_tiep_nhan, pair_with: tnmt.ho_so_da_giai_quyet, label: Hồ sơ TNMT đã giải quyết / tiếp nhận }
+      - { indicator: tnmt.ho_so_tre_han, bad_if: ">0" }
+      - { indicator: tnmt.ho_so_dang_xu_ly }
+      - { indicator: tnmt.vsmt_ho_nop }
+      - { indicator: tnmt.vsmt_ty_le, plan: true }
+      - { indicator: tnmt.vsmt_tien }
+      - { indicator: tnmt.vi_pham_dat_dai }
+  - key: tai_chinh
+    name: Tài chính – Ngân sách
+    cards:
+      - { indicator: tai_chinh.thu_ns, plan: true }
+      - { indicator: tai_chinh.thu_noi_dia, plan: true }
+      - { indicator: tai_chinh.thu_ns_xa_huong }
+      - { indicator: tai_chinh.chi_ns, plan: true }
+      - { indicator: tai_chinh.chi_thuong_xuyen }
+      - { indicator: tai_chinh.chi_dau_tu }
+      - { indicator: tai_chinh.giai_ngan, plan: true }
+  - key: van_hoa_xa_hoi
+    name: Văn hoá – Xã hội
+    tabs:
+      - { key: y_te, name: Y tế, cards: [ { indicator: y_te.luot_kham }, { indicator: y_te.luot_bhyt }, { indicator: y_te.luot_yhct }, { indicator: y_te.tre_tiem_chung, plan: true }, { indicator: y_te.ca_dich_benh, bad_if: ">0" } ] }
+      - { key: an_sinh, name: An sinh – Lao động, cards: [ { indicator: csxh.tro_cap_luot }, { indicator: csxh.tro_cap_tien, plan: true }, { indicator: csxh.ho_ngheo, plan: true, lower_is_better: true }, { indicator: csxh.ho_can_ngheo }, { indicator: vhxh.viec_lam_moi, plan: true }, { indicator: vhxh.the_bhyt } ] }
+      - { key: van_hoa, name: Văn hoá, cards: [ { indicator: vhxh.gia_dinh_van_hoa, plan: true } ] }
+  - key: khcn_cds
+    name: KHCN – Chuyển đổi số
+    cards:
+      - { indicator: cds.can_bo_tong, pair_with: cds.can_bo_ky_nang_so, label: Cán bộ hoàn thành kỹ năng số / tổng }
+      - { indicator: cds.to_cong_nghe_so }
+      - { indicator: cds.nhiem_vu_nq57_giao, pair_with: cds.nhiem_vu_nq57_hoan_thanh, label: Nhiệm vụ NQ57 hoàn thành / giao }
+      - { indicator: cds.data_health, data_health: true }
+  - key: noi_vu_cchc
+    name: Nội vụ – CCHC
+    cards:
+      - { indicator: tthc.tiep_nhan, pair_with: tthc.giai_quyet, label: Hồ sơ đã giải quyết / tiếp nhận, funnel: [tthc.tiep_nhan, tthc.giai_quyet, tthc.truoc_han, tthc.qua_han, tthc.dang_xu_ly] }
+      - { indicator: tthc.ty_le_truc_tuyen }
+      - { indicator: tthc.qua_han, bad_if: ">0" }
+      - { indicator: kpi.diem_trung_binh }
+      - { indicator: kpi.ty_le_viec_dung_han }
+  - key: qpan_noi_chinh
+    name: Quốc phòng – An ninh – Nội chính
+    roles: [super_admin, commune_admin, leader, council, department_staff]
+    cards:
+      - { indicator: an_ninh.vu_viec, pair_with: an_ninh.vu_viec_xu_ly, label: Vụ việc đã xử lý / xảy ra }
+      - { indicator: an_ninh.tai_nan_gt, bad_if: ">0" }
+      - { indicator: tiep_dan.don_tiep_nhan, pair_with: tiep_dan.don_da_giai_quyet, label: Đơn thư đã giải quyết / tiếp nhận }
+      - { indicator: tiep_dan.don_dang_xu_ly }
+      - { indicator: tu_phap.chung_thuc }
+      - { indicator: tu_phap.hoa_giai_tiep_nhan, pair_with: tu_phap.hoa_giai_thanh, label: Hoà giải thành / tiếp nhận }
+      - { indicator: quoc_phong.thanh_nien_nhap_ngu, plan: true }

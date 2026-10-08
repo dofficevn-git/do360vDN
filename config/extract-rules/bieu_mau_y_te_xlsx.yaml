@@ -1,0 +1,31 @@
+# Luật bóc tách BIỂU MẪU EXCEL CHUẨN của bộ phận Trạm Y tế — SINH TỰ ĐỘNG bởi tools/make_forms.py, không sửa tay.
+# Khớp theo cột 'Mã chỉ tiêu' (nhãn hàng = mã) và cột 'Giá trị'. Đổi danh mục → chạy lại script và tăng version.
+source_type: bieu_mau_y_te_xlsx
+version: 2
+file_kind: xlsx
+domain: null
+match:
+  sheet: Biểu mẫu
+  header_contains: Mã chỉ tiêu
+map:
+- row: y_te.luot_kham
+  column: Giá trị
+  indicator: y_te.luot_kham
+- row: y_te.luot_bhyt
+  column: Giá trị
+  indicator: y_te.luot_bhyt
+- row: y_te.luot_yhct
+  column: Giá trị
+  indicator: y_te.luot_yhct
+- row: y_te.tre_tiem_chung
+  column: Giá trị
+  indicator: y_te.tre_tiem_chung
+- row: y_te.tiem_chung_mui
+  column: Giá trị
+  indicator: y_te.tiem_chung_mui
+- row: y_te.tre_tiem_du
+  column: Giá trị
+  indicator: y_te.tre_tiem_du
+- row: y_te.ca_dich_benh
+  column: Giá trị
+  indicator: y_te.ca_dich_benh

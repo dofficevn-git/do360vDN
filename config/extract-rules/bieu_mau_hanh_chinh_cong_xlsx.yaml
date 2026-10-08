@@ -1,0 +1,28 @@
+# Luật bóc tách BIỂU MẪU EXCEL CHUẨN của bộ phận Trung tâm phục vụ hành chính công — SINH TỰ ĐỘNG bởi tools/make_forms.py, không sửa tay.
+# Khớp theo cột 'Mã chỉ tiêu' (nhãn hàng = mã) và cột 'Giá trị'. Đổi danh mục → chạy lại script và tăng version.
+source_type: bieu_mau_hanh_chinh_cong_xlsx
+version: 2
+file_kind: xlsx
+domain: null
+match:
+  sheet: Biểu mẫu
+  header_contains: Mã chỉ tiêu
+map:
+- row: tthc.tiep_nhan
+  column: Giá trị
+  indicator: tthc.tiep_nhan
+- row: tthc.giai_quyet
+  column: Giá trị
+  indicator: tthc.giai_quyet
+- row: tthc.truoc_han
+  column: Giá trị
+  indicator: tthc.truoc_han
+- row: tthc.qua_han
+  column: Giá trị
+  indicator: tthc.qua_han
+- row: tthc.dang_xu_ly
+  column: Giá trị
+  indicator: tthc.dang_xu_ly
+- row: tthc.ty_le_truc_tuyen
+  column: Giá trị
+  indicator: tthc.ty_le_truc_tuyen

@@ -1,0 +1,46 @@
+# Luật bóc tách BIỂU MẪU EXCEL CHUẨN của bộ phận Công an — SINH TỰ ĐỘNG bởi tools/make_forms.py, không sửa tay.
+# Khớp theo cột 'Mã chỉ tiêu' (nhãn hàng = mã) và cột 'Giá trị'. Đổi danh mục → chạy lại script và tăng version.
+source_type: bieu_mau_cong_an_xlsx
+version: 1
+file_kind: xlsx
+domain: null
+match:
+  sheet: Biểu mẫu
+  header_contains: Mã chỉ tiêu
+map:
+- row: tiep_dan.luot_tiep
+  column: Giá trị
+  indicator: tiep_dan.luot_tiep
+- row: tiep_dan.don_tiep_nhan
+  column: Giá trị
+  indicator: tiep_dan.don_tiep_nhan
+- row: tiep_dan.don_da_giai_quyet
+  column: Giá trị
+  indicator: tiep_dan.don_da_giai_quyet
+- row: tiep_dan.don_dang_xu_ly
+  column: Giá trị
+  indicator: tiep_dan.don_dang_xu_ly
+- row: tiep_dan.gq_khieu_nai
+  column: Giá trị
+  indicator: tiep_dan.gq_khieu_nai
+- row: tiep_dan.gq_to_cao
+  column: Giá trị
+  indicator: tiep_dan.gq_to_cao
+- row: tiep_dan.gq_kien_nghi
+  column: Giá trị
+  indicator: tiep_dan.gq_kien_nghi
+- row: an_ninh.thuong_tru
+  column: Giá trị
+  indicator: an_ninh.thuong_tru
+- row: an_ninh.tam_tru
+  column: Giá trị
+  indicator: an_ninh.tam_tru
+- row: an_ninh.vu_viec
+  column: Giá trị
+  indicator: an_ninh.vu_viec
+- row: an_ninh.vu_viec_xu_ly
+  column: Giá trị
+  indicator: an_ninh.vu_viec_xu_ly
+- row: an_ninh.tai_nan_gt
+  column: Giá trị
+  indicator: an_ninh.tai_nan_gt

@@ -1,0 +1,66 @@
+# Lĩnh vực: Tài chính – ngân sách, đầu tư công (mục II.1). Nguồn: phần mềm kế toán ngân sách (export), kho bạc.
+# Số mẫu Báo cáo 436: thu NSNN 352,732 / dự toán 304,252 tỷ (116%); thu nội địa 72,491 / 100,4 tỷ (72%).
+# Dự toán năm (thu, chi, vốn đầu tư) là KẾ HOẠCH NĂM → nhập ở "Kế hoạch năm" (plan_target), câu số dùng {id:plan%}.
+domain: tai_chinh
+owner_dept: kinh_te
+regulation_ref: Báo cáo 436/BC-UBND (mục II.1)
+indicators:
+  - id: tai_chinh.thu_ns
+    name: Tổng thu ngân sách trên địa bàn
+    unit: đồng
+    value_type: money
+    aggregation: cumulative
+    capture_method: export
+    definition: Lũy kế từ đầu năm, số thực thu theo báo cáo kho bạc/kế toán.
+  - id: tai_chinh.thu_noi_dia
+    name: Thu nội địa
+    unit: đồng
+    value_type: money
+    aggregation: cumulative
+    capture_method: export
+    parent: tai_chinh.thu_ns
+  - id: tai_chinh.thu_ns_xa_huong
+    name: Thu ngân sách xã được hưởng
+    unit: đồng
+    value_type: money
+    aggregation: cumulative
+    capture_method: export
+    parent: tai_chinh.thu_ns
+  - id: tai_chinh.chi_ns
+    name: Tổng chi ngân sách
+    unit: đồng
+    value_type: money
+    aggregation: cumulative
+    capture_method: export
+  - id: tai_chinh.chi_thuong_xuyen
+    name: Chi thường xuyên
+    unit: đồng
+    value_type: money
+    aggregation: cumulative
+    capture_method: export
+    parent: tai_chinh.chi_ns
+  - id: tai_chinh.chi_dau_tu
+    name: Chi đầu tư phát triển
+    unit: đồng
+    value_type: money
+    aggregation: cumulative
+    capture_method: export
+    parent: tai_chinh.chi_ns
+  - id: tai_chinh.giai_ngan
+    name: Vốn đầu tư công đã giải ngân
+    unit: đồng
+    value_type: money
+    aggregation: cumulative
+    capture_method: export
+  - id: tai_chinh.so_du_an
+    name: Số công trình, dự án đang triển khai
+    unit: công trình
+    value_type: integer
+    aggregation: point_in_time
+    capture_method: form
+  - id: tai_chinh.so_du_an_hoan_thanh
+    name: Công trình, dự án đã hoàn thành trong kỳ
+    unit: công trình
+    value_type: integer
+    aggregation: cumulative
+    capture_method: form

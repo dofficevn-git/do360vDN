@@ -1,0 +1,43 @@
+# Luật bóc tách BIỂU MẪU EXCEL CHUẨN của bộ phận Văn phòng HĐND và UBND — SINH TỰ ĐỘNG bởi tools/make_forms.py, không sửa tay.
+# Khớp theo cột 'Mã chỉ tiêu' (nhãn hàng = mã) và cột 'Giá trị'. Đổi danh mục → chạy lại script và tăng version.
+source_type: bieu_mau_van_phong_xlsx
+version: 2
+file_kind: xlsx
+domain: null
+match:
+  sheet: Biểu mẫu
+  header_contains: Mã chỉ tiêu
+map:
+- row: cds.can_bo_tong
+  column: Giá trị
+  indicator: cds.can_bo_tong
+- row: cds.can_bo_ky_nang_so
+  column: Giá trị
+  indicator: cds.can_bo_ky_nang_so
+- row: cds.to_cong_nghe_so
+  column: Giá trị
+  indicator: cds.to_cong_nghe_so
+- row: cds.nhiem_vu_nq57_giao
+  column: Giá trị
+  indicator: cds.nhiem_vu_nq57_giao
+- row: cds.nhiem_vu_nq57_hoan_thanh
+  column: Giá trị
+  indicator: cds.nhiem_vu_nq57_hoan_thanh
+- row: tu_phap.khai_sinh
+  column: Giá trị
+  indicator: tu_phap.khai_sinh
+- row: tu_phap.khai_tu
+  column: Giá trị
+  indicator: tu_phap.khai_tu
+- row: tu_phap.ket_hon
+  column: Giá trị
+  indicator: tu_phap.ket_hon
+- row: tu_phap.chung_thuc
+  column: Giá trị
+  indicator: tu_phap.chung_thuc
+- row: tu_phap.hoa_giai_tiep_nhan
+  column: Giá trị
+  indicator: tu_phap.hoa_giai_tiep_nhan
+- row: tu_phap.hoa_giai_thanh
+  column: Giá trị
+  indicator: tu_phap.hoa_giai_thanh

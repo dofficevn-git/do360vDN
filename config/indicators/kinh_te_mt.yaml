@@ -1,0 +1,63 @@
+# Lĩnh vực: Nông nghiệp, môi trường, chính sách xã hội (mục II.1.3, II.2.2). Nguồn: sổ theo dõi Excel của chuyên viên.
+domain: kinh_te_mt
+owner_dept: kinh_te
+regulation_ref: Báo cáo 436/BC-UBND (mục II.1.3)
+indicators:
+  - id: kt.tiem_phong_gia_suc
+    name: Gia súc, gia cầm đã tiêm phòng
+    unit: con
+    value_type: integer
+    aggregation: cumulative
+    capture_method: form
+  - id: kt.dien_tich_gieo_trong
+    name: Diện tích gieo trồng
+    unit: ha
+    value_type: decimal
+    aggregation: cumulative
+    capture_method: form
+  - id: kt.thu_phi_ve_sinh
+    name: Thu phí vệ sinh môi trường
+    unit: đồng
+    value_type: money
+    aggregation: cumulative
+    capture_method: export
+  - id: kt.ty_le_rac_thu_gom
+    name: Tỷ lệ rác thải được thu gom
+    unit: "%"
+    value_type: percent
+    aggregation: point_in_time
+    capture_method: form
+  - id: kt.vi_pham_xay_dung
+    name: Trường hợp vi phạm trật tự xây dựng đã xử lý
+    unit: trường hợp
+    value_type: integer
+    aggregation: cumulative
+    capture_method: form
+  - id: csxh.ho_ngheo
+    name: Hộ nghèo
+    unit: hộ
+    value_type: integer
+    aggregation: point_in_time
+    capture_method: form
+    owner_dept: van_hoa_xa_hoi
+  - id: csxh.ho_can_ngheo
+    name: Hộ cận nghèo
+    unit: hộ
+    value_type: integer
+    aggregation: point_in_time
+    capture_method: form
+    owner_dept: van_hoa_xa_hoi
+  - id: csxh.tro_cap_luot
+    name: Lượt đối tượng được chi trả trợ cấp
+    unit: lượt
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+    owner_dept: van_hoa_xa_hoi
+  - id: csxh.tro_cap_tien
+    name: Kinh phí trợ cấp đã chi trả
+    unit: đồng
+    value_type: money
+    aggregation: cumulative
+    capture_method: export
+    owner_dept: van_hoa_xa_hoi

@@ -1,0 +1,26 @@
+# Mẫu rút gọn 1 mục (một cửa) — dùng cho bộ kiểm thử eval/smoke_*.py và để demo nhanh một lĩnh vực.
+# Không dùng cho báo cáo thật (báo cáo thật dùng ktxh_dinh_ky).
+spec_code: ktxh_mot_cua
+version: 1
+report_type: ktxh
+title: Báo cáo kết quả giải quyết thủ tục hành chính
+period_types: [month, quarter, half, nine_months, year]
+sections:
+  "II": "Kết quả thực hiện"
+  "II.3.4": "Thủ tục hành chính, bộ phận một cửa"
+slots:
+  - slot_id: tthc.mot_cua.tong_hop
+    title: Giải quyết thủ tục hành chính tại Bộ phận Một cửa
+    section: "II.3.4"
+    slot_type: metric_sentence
+    indicators: [tthc.tiep_nhan, tthc.giai_quyet, tthc.truoc_han, tthc.qua_han, tthc.dang_xu_ly]
+    template: >
+      đã tiếp nhận {tthc.tiep_nhan} hồ sơ; giải quyết {tthc.giai_quyet} hồ sơ,
+      trong đó {tthc.truoc_han} trước hạn, {tthc.qua_han} quá hạn,
+      {tthc.dang_xu_ly} hồ sơ đang trong thời hạn
+    checks:
+      - expr: tthc.truoc_han + tthc.qua_han == tthc.giai_quyet
+        label: Trước hạn + quá hạn = đã giải quyết
+      - expr: tthc.giai_quyet + tthc.dang_xu_ly == tthc.tiep_nhan
+        label: Đã giải quyết + đang xử lý = tổng tiếp nhận
+    owner_dept: hanh_chinh_cong

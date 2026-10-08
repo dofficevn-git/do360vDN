@@ -1,0 +1,59 @@
+# Data Core demo (Blueprint V0.5): Object – Relation – Event – Document cho Phường Điện Bàn Bắc. Tiền tính bằng đồng.
+# dia_ban: tham chiếu danh mục khu dân cư; to_chuc: nhà thầu (mã số thuế = Master ID); du_an: phường quản lý (LOCAL_MASTER);
+# ho_kinh_doanh: tham chiếu đăng ký kinh doanh + sự kiện CĐS (LOCAL). Tổng giải ngân 14 dự án ≈ 178,4 tỷ = chỉ tiêu tai_chinh.giai_ngan 9 tháng.
+dia_ban:
+  - { code: KDC-01, name: Khu dân cư Bình An, so_ho: 612, nhan_khau: 2410, to_truong: Nguyễn Văn Hải }
+  - { code: KDC-02, name: Khu dân cư Bình Hoà, so_ho: 548, nhan_khau: 2105, to_truong: Trần Thị Lệ }
+  - { code: KDC-03, name: Khu dân cư Ngọc Tam, so_ho: 701, nhan_khau: 2890, to_truong: Lê Văn Tám }
+  - { code: KDC-04, name: Khu dân cư Ngọc Tứ, so_ho: 655, nhan_khau: 2630, to_truong: Phạm Thị Hoa }
+  - { code: KDC-05, name: Khu dân cư Phong Nhị, so_ho: 820, nhan_khau: 3315, to_truong: Võ Văn Dũng }
+  - { code: KDC-06, name: Khu dân cư Phong Lục, so_ho: 590, nhan_khau: 2240, to_truong: Đỗ Thị Nga }
+  - { code: KDC-07, name: Khu dân cư Thanh Quýt, so_ho: 944, nhan_khau: 3760, to_truong: Huỳnh Văn Lộc }
+  - { code: KDC-08, name: Khu dân cư An Thành, so_ho: 735, nhan_khau: 2950, to_truong: Ngô Thị Thu }
+to_chuc:
+  - { code: TC-001, name: Công ty TNHH Xây dựng Điện Bàn, master_id: "0401234567", ma_so_thue: "0401234567", loai_hinh: TNHH, dia_chi: Điện Bàn Bắc }
+  - { code: TC-002, name: Công ty CP Đầu tư hạ tầng Quảng Đà, master_id: "0401987654", ma_so_thue: "0401987654", loai_hinh: Cổ phần, dia_chi: Đà Nẵng }
+  - { code: TC-003, name: Công ty TNHH MTV Cấp thoát nước Miền Trung, master_id: "0400555123", ma_so_thue: "0400555123", loai_hinh: TNHH MTV, dia_chi: Đà Nẵng }
+  - { code: TC-004, name: Doanh nghiệp tư nhân Thanh Quýt, master_id: "0401777888", ma_so_thue: "0401777888", loai_hinh: DNTN, dia_chi: Điện Bàn Bắc }
+  - { code: TC-005, name: Công ty CP Chiếu sáng đô thị Đà Nẵng, master_id: "0400333999", ma_so_thue: "0400333999", loai_hinh: Cổ phần, dia_chi: Đà Nẵng }
+du_an:
+  - { code: DA-001, name: Nâng cấp đường ĐH 4 đoạn qua Ngọc Tam, tong_muc: 28500000000, ke_hoach_von: 22000000000, giai_ngan: 19800000000, tien_do: 88, gpmb: 100, han_hoan_thanh: "2026-11-30", contractor: TC-001, dia_ban: KDC-03,
+      events: [ { type: phe_duyet, date: "2026-01-20" }, { type: khoi_cong, date: "2026-03-05" }, { type: giai_ngan, date: "2026-06-25", so_tien: 11000000000 }, { type: giai_ngan, date: "2026-09-10", so_tien: 8800000000 } ], docs: [118/QĐ-UBND] }
+  - { code: DA-002, name: Kè chống sạt lở bờ sông Vĩnh Điện đoạn Phong Nhị, tong_muc: 46000000000, ke_hoach_von: 35000000000, giai_ngan: 19250000000, tien_do: 52, gpmb: 71, han_hoan_thanh: "2026-12-31", contractor: TC-002, dia_ban: KDC-05, vuong_mac: "3 hộ chưa nhận tiền bồi thường GPMB, kiến nghị áp giá lại",
+      events: [ { type: phe_duyet, date: "2026-02-10" }, { type: khoi_cong, date: "2026-04-15" }, { type: gpmb, date: "2026-07-20", ty_le: 71 }, { type: giai_ngan, date: "2026-08-28", so_tien: 19250000000 } ], docs: [118/QĐ-UBND, 2210/UBND-KT] }
+  - { code: DA-003, name: Trường Mầm non Bình An (khối 6 phòng học), tong_muc: 18200000000, ke_hoach_von: 16000000000, giai_ngan: 15600000000, tien_do: 95, gpmb: 100, han_hoan_thanh: "2026-10-31", contractor: TC-001, dia_ban: KDC-01,
+      events: [ { type: phe_duyet, date: "2025-11-12" }, { type: khoi_cong, date: "2026-01-15" }, { type: giai_ngan, date: "2026-05-30", so_tien: 9000000000 }, { type: giai_ngan, date: "2026-09-05", so_tien: 6600000000 } ] }
+  - { code: DA-004, name: Hệ thống thoát nước khu dân cư Thanh Quýt, tong_muc: 31000000000, ke_hoach_von: 24000000000, giai_ngan: 9100000000, tien_do: 38, gpmb: 85, han_hoan_thanh: "2026-12-15", contractor: TC-003, dia_ban: KDC-07, vuong_mac: "Chờ điều chỉnh thiết kế tuyến cống qua đường tỉnh",
+      events: [ { type: phe_duyet, date: "2026-03-01" }, { type: khoi_cong, date: "2026-05-20" }, { type: giai_ngan, date: "2026-08-15", so_tien: 9100000000 }, { type: dieu_chinh, date: "2026-09-12", tien_do: 38 } ], docs: [118/QĐ-UBND] }
+  - { code: DA-005, name: Chiếu sáng công cộng tuyến ĐT 609 (đoạn 2,4 km), tong_muc: 6400000000, ke_hoach_von: 6400000000, giai_ngan: 6400000000, tien_do: 100, gpmb: 100, han_hoan_thanh: "2026-06-30", contractor: TC-005, dia_ban: KDC-02, status: completed,
+      events: [ { type: phe_duyet, date: "2025-12-05" }, { type: khoi_cong, date: "2026-02-10" }, { type: giai_ngan, date: "2026-05-15", so_tien: 6400000000 }, { type: nghiem_thu, date: "2026-06-20", tien_do: 100 }, { type: hoan_thanh, date: "2026-06-28" } ] }
+  - { code: DA-006, name: Sửa chữa Trạm Y tế phường, tong_muc: 4800000000, ke_hoach_von: 4800000000, giai_ngan: 4800000000, tien_do: 100, gpmb: 100, han_hoan_thanh: "2026-05-31", contractor: TC-004, dia_ban: KDC-04, status: completed,
+      events: [ { type: phe_duyet, date: "2025-12-20" }, { type: khoi_cong, date: "2026-02-01" }, { type: giai_ngan, date: "2026-05-20", so_tien: 4800000000 }, { type: hoan_thanh, date: "2026-05-28" } ] }
+  - { code: DA-007, name: Nhà văn hoá khu dân cư Ngọc Tứ, tong_muc: 5200000000, ke_hoach_von: 5200000000, giai_ngan: 5200000000, tien_do: 100, gpmb: 100, han_hoan_thanh: "2026-07-31", contractor: TC-004, dia_ban: KDC-04, status: completed,
+      events: [ { type: phe_duyet, date: "2026-01-08" }, { type: khoi_cong, date: "2026-03-20" }, { type: giai_ngan, date: "2026-07-10", so_tien: 5200000000 }, { type: hoan_thanh, date: "2026-07-25" } ] }
+  - { code: DA-008, name: Bê tông hoá giao thông nông thôn Phong Lục (12 tuyến), tong_muc: 9700000000, ke_hoach_von: 9700000000, giai_ngan: 9700000000, tien_do: 100, gpmb: 100, han_hoan_thanh: "2026-08-31", contractor: TC-001, dia_ban: KDC-06, status: completed,
+      events: [ { type: phe_duyet, date: "2026-01-25" }, { type: khoi_cong, date: "2026-04-02" }, { type: giai_ngan, date: "2026-08-20", so_tien: 9700000000 }, { type: hoan_thanh, date: "2026-08-29" } ] }
+  - { code: DA-009, name: Cải tạo chợ Thanh Quýt giai đoạn 1, tong_muc: 12600000000, ke_hoach_von: 12600000000, giai_ngan: 12600000000, tien_do: 100, gpmb: 100, han_hoan_thanh: "2026-09-15", contractor: TC-002, dia_ban: KDC-07, status: completed,
+      events: [ { type: phe_duyet, date: "2026-02-18" }, { type: khoi_cong, date: "2026-04-25" }, { type: giai_ngan, date: "2026-09-08", so_tien: 12600000000 }, { type: hoan_thanh, date: "2026-09-14" } ] }
+  - { code: DA-010, name: Mở rộng đường vào Cụm công nghiệp An Thành, tong_muc: 38000000000, ke_hoach_von: 30000000000, giai_ngan: 21000000000, tien_do: 68, gpmb: 92, han_hoan_thanh: "2026-12-31", contractor: TC-002, dia_ban: KDC-08,
+      events: [ { type: phe_duyet, date: "2026-01-30" }, { type: khoi_cong, date: "2026-04-10" }, { type: giai_ngan, date: "2026-07-05", so_tien: 12000000000 }, { type: giai_ngan, date: "2026-09-12", so_tien: 9000000000 } ] }
+  - { code: DA-011, name: Kênh tưới tiêu Ngọc Tam – Phong Nhị, tong_muc: 15300000000, ke_hoach_von: 12000000000, giai_ngan: 10200000000, tien_do: 82, gpmb: 100, han_hoan_thanh: "2026-11-15", contractor: TC-003, dia_ban: KDC-03,
+      events: [ { type: phe_duyet, date: "2026-02-22" }, { type: khoi_cong, date: "2026-04-28" }, { type: giai_ngan, date: "2026-08-30", so_tien: 10200000000 } ] }
+  - { code: DA-012, name: Trụ sở Công an phường (cải tạo, mở rộng), tong_muc: 21000000000, ke_hoach_von: 18000000000, giai_ngan: 14800000000, tien_do: 79, gpmb: 100, han_hoan_thanh: "2026-12-20", contractor: TC-001, dia_ban: KDC-01,
+      events: [ { type: phe_duyet, date: "2026-01-15" }, { type: khoi_cong, date: "2026-03-28" }, { type: giai_ngan, date: "2026-09-10", so_tien: 14800000000 } ] }
+  - { code: DA-013, name: Hệ thống camera an ninh 8 khu dân cư, tong_muc: 7900000000, ke_hoach_von: 7900000000, giai_ngan: 5900000000, tien_do: 74, gpmb: 100, han_hoan_thanh: "2026-11-30", contractor: TC-005, dia_ban: KDC-05,
+      events: [ { type: phe_duyet, date: "2026-03-10" }, { type: khoi_cong, date: "2026-06-01" }, { type: giai_ngan, date: "2026-09-14", so_tien: 5900000000 } ] }
+  - { code: DA-014, name: Nâng cấp sân vận động phường, tong_muc: 33000000000, ke_hoach_von: 36400000000, giai_ngan: 24050000000, tien_do: 61, gpmb: 100, han_hoan_thanh: "2027-03-31", contractor: TC-002, dia_ban: KDC-02,
+      events: [ { type: phe_duyet, date: "2026-02-05" }, { type: khoi_cong, date: "2026-04-20" }, { type: giai_ngan, date: "2026-08-25", so_tien: 24050000000 } ] }
+# 30 hộ kinh doanh mẫu (REFERENCE): mã số HKD là Master ID; sự kiện CĐS là dữ liệu phường tạo (LOCAL)
+ho_kinh_doanh_template:
+  count: 30
+  names: [Tạp hoá Minh Tâm, Cà phê Bình An, Sửa xe Hùng Phát, Quán ăn Cô Ba, Tiệm vàng Kim Ngọc, Vật liệu xây dựng Lộc Phát, Nông sản Phong Nhị, Thời trang Hà My, Điện lạnh Tuấn Kiệt, Nhà thuốc Thanh Quýt, Hàng ăn Dì Bảy, Hớt tóc Nam Phong, Photocopy Ngọc Tam, Gas Bình Hoà, Giày dép Thu Hà, Rau sạch An Thành, Bánh mì Cô Lan, Điện nước Văn Đức, Internet Ngọc Tứ, Mỹ phẩm Lệ Quyên, Gạo Phong Lục, Nội thất Hoàng Gia, Bún bò Mệ Tám, Cơ khí Đại Lợi, Văn phòng phẩm Hồng Phúc, Bia hơi Hải Hà, Xe đạp điện Thành Đạt, Trái cây Tư Hiền, Giặt ủi Sạch, Hoa tươi Mai Anh]
+  cds_tiep_can: 22      # 22/30 đã tiếp cận (tỷ lệ ~ 344/442 của toàn phường)
+  cai_ung_dung: 9       # 9/30 đã cài ứng dụng
+# Nhóm Zalo chính danh do OA đơn vị sở hữu (đăng ký, chưa có API nhóm cho OA cơ quan → chỉ ghi nhật ký)
+channels:
+  - { key: lanh_dao, name: "DO360 | Ban lãnh đạo", scope_type: EXECUTIVE, classification_allowed: INTERNAL, member_rules: ["role:leader", "role:commune_admin"] }
+  - { key: van_phong, name: "DO360 | Văn phòng", scope_type: DEPARTMENT, scope_id: van_phong, classification_allowed: INTERNAL, member_rules: ["dept:van_phong"] }
+  - { key: bao_cao, name: "DO360 | Báo cáo KT-XH", scope_type: REPORTING, classification_allowed: INTERNAL, member_rules: ["role:commune_admin", "dept_head:*"] }
+  - { key: du_an, name: "DO360 | Dự án trọng điểm", scope_type: PROJECT, classification_allowed: INTERNAL, member_rules: ["role:leader", "dept:kinh_te"] }

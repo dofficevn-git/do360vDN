@@ -1,0 +1,351 @@
+# Report Spec: Báo cáo định kỳ tình hình kinh tế - xã hội, quốc phòng - an ninh của UBND cấp xã.
+# v3 (07/10/2026): dựng theo cấu trúc Báo cáo 436/BC-UBND (phường Điện Bàn Bắc, 9 tháng 2026) đúng như Blueprint V0.5 mục 14 và 50:
+# I Chỉ đạo điều hành · II.1 Kinh tế (công thương/HKD, nông nghiệp, quy hoạch–đầu tư–xây dựng–GPMB, TNMT, tài chính) · II.2 VH-XH
+# (văn hoá, y tế, an sinh) · II.3 KHCN–CĐS · II.4 Nội vụ–CCHC · II.5 QPAN–Nội chính · III Nhiệm vụ kỳ tới.
+# Báo cáo là một VIEW trên kho số: số do template render, LLM không sinh số. Có bản Word 436 thật → nạp v4, không sửa code.
+#
+# Quy ước khuôn câu: {id} số VN · {id:unit} kèm đơn vị · {a/b:%} tỷ lệ · {ky} tên kỳ · {ngay_chot} · {id:plan%} "đạt x% kế hoạch"
+# {id:yoy} "tăng/giảm x% so với cùng kỳ" · {id:prev} so kỳ trước · [[ … ]] đoạn tuỳ chọn, tự bỏ khi thiếu biến.
+spec_code: ktxh_dinh_ky
+version: 3
+report_type: ktxh
+title: Báo cáo tình hình kinh tế - xã hội, quốc phòng - an ninh
+period_types: [month, quarter, half, nine_months, year]
+sections:
+  "I": "Công tác chỉ đạo, điều hành"
+  "I.1": "Văn bản chỉ đạo, điều hành"
+  "I.2": "Thực hiện nhiệm vụ được giao"
+  "I.3": "Phản ánh, kiến nghị của người dân (1022/IOC)"
+  "II": "Kết quả thực hiện trên các lĩnh vực"
+  "II.1": "Kinh tế"
+  "II.1.1": "Công thương, hộ kinh doanh, chuyển đổi số hộ kinh doanh"
+  "II.1.2": "Nông nghiệp, trật tự đô thị"
+  "II.1.3": "Quy hoạch, đầu tư công, xây dựng, giải phóng mặt bằng"
+  "II.1.4": "Tài nguyên, môi trường"
+  "II.1.5": "Tài chính, ngân sách"
+  "II.2": "Văn hoá, xã hội"
+  "II.2.1": "Y tế, dân số"
+  "II.2.2": "Chính sách xã hội, giảm nghèo"
+  "II.2.3": "Văn hoá, lao động, việc làm"
+  "II.3": "Khoa học công nghệ, chuyển đổi số"
+  "II.4": "Nội vụ, cải cách hành chính"
+  "II.5": "Quốc phòng, an ninh, nội chính"
+  "II.5.1": "Tư pháp, hộ tịch, hoà giải"
+  "II.5.2": "Tiếp công dân, giải quyết đơn thư"
+  "II.5.3": "An ninh, trật tự"
+  "II.5.4": "Quốc phòng, quân sự địa phương"
+  "III": "Nhiệm vụ trọng tâm kỳ tới"
+slots:
+  # ── I. Chỉ đạo, điều hành ──
+  - slot_id: chi_dao.loi_dan
+    title: Lời dẫn công tác chỉ đạo, điều hành
+    section: "I"
+    slot_type: narrative
+    owner_dept: van_phong
+    required: false
+    narrative_template: >
+      Trong {ky}, UBND phường tập trung chỉ đạo thực hiện các nhiệm vụ trọng tâm theo kế hoạch năm và chỉ đạo của
+      UBND thành phố; duy trì nền nếp hội họp, giao ban, kiểm tra, đôn đốc tiến độ từng lĩnh vực.
+  - slot_id: chi_dao.van_ban
+    title: Văn bản đến, đi
+    section: "I.1"
+    slot_type: metric_sentence
+    indicators: [chi_dao.vb_den, chi_dao.vb_di]
+    template: >
+      tiếp nhận {chi_dao.vb_den} văn bản đến[[, {chi_dao.vb_den:yoy}]]; ban hành {chi_dao.vb_di} văn bản đi
+    owner_dept: van_phong
+  - slot_id: chi_dao.co_cau_van_ban
+    title: Cơ cấu văn bản đi
+    section: "I.1"
+    slot_type: metric_sentence
+    indicators: [chi_dao.vb_di, chi_dao.vb_di_quyet_dinh, chi_dao.vb_di_bao_cao, chi_dao.vb_di_cong_van, chi_dao.vb_di_to_trinh, chi_dao.vb_di_ke_hoach, chi_dao.vb_di_thong_bao, chi_dao.vb_di_giay_moi, chi_dao.vb_di_phieu_chuyen]
+    template: >
+      trong đó {chi_dao.vb_di_quyet_dinh} quyết định, {chi_dao.vb_di_bao_cao} báo cáo, {chi_dao.vb_di_cong_van} công văn,
+      {chi_dao.vb_di_to_trinh} tờ trình, {chi_dao.vb_di_ke_hoach} kế hoạch, {chi_dao.vb_di_thong_bao} thông báo,
+      {chi_dao.vb_di_giay_moi} giấy mời và {chi_dao.vb_di_phieu_chuyen} phiếu chuyển
+    checks:
+      - expr: chi_dao.vb_di_quyet_dinh + chi_dao.vb_di_bao_cao + chi_dao.vb_di_cong_van + chi_dao.vb_di_to_trinh + chi_dao.vb_di_ke_hoach + chi_dao.vb_di_thong_bao + chi_dao.vb_di_giay_moi + chi_dao.vb_di_phieu_chuyen == chi_dao.vb_di
+        label: Tám loại văn bản cộng lại bằng tổng văn bản đi
+    owner_dept: van_phong
+  - slot_id: chi_dao.su_kien
+    title: Văn bản chỉ đạo tiêu biểu trong kỳ
+    section: "I.1"
+    slot_type: event_list
+    event_query: { object_types: [DOC], event_types: [ban_hanh] }
+    owner_dept: van_phong
+    required: false
+  - slot_id: chi_dao.nhiem_vu
+    title: Nhiệm vụ được giao
+    section: "I.2"
+    slot_type: metric_sentence
+    indicators: [chi_dao.nhiem_vu_giao, chi_dao.nhiem_vu_hoan_thanh, chi_dao.nhiem_vu_qua_han]
+    template: >
+      được giao {chi_dao.nhiem_vu_giao} nhiệm vụ, đã hoàn thành {chi_dao.nhiem_vu_hoan_thanh} nhiệm vụ
+      ({chi_dao.nhiem_vu_hoan_thanh/chi_dao.nhiem_vu_giao:%}), còn {chi_dao.nhiem_vu_qua_han} nhiệm vụ quá hạn
+    checks:
+      - expr: chi_dao.nhiem_vu_hoan_thanh <= chi_dao.nhiem_vu_giao
+        label: Nhiệm vụ hoàn thành không vượt nhiệm vụ được giao
+    owner_dept: van_phong
+    required: false
+  - slot_id: chi_dao.phan_anh
+    title: Phản ánh, kiến nghị 1022/IOC
+    section: "I.3"
+    slot_type: metric_sentence
+    indicators: [chi_dao.phan_anh_tiep_nhan, chi_dao.phan_anh_da_xu_ly, chi_dao.phan_anh_qua_han]
+    template: >
+      tiếp nhận {chi_dao.phan_anh_tiep_nhan} phản ánh, kiến nghị; đã xử lý {chi_dao.phan_anh_da_xu_ly}
+      ({chi_dao.phan_anh_da_xu_ly/chi_dao.phan_anh_tiep_nhan:%}), {chi_dao.phan_anh_qua_han} phản ánh xử lý quá hạn
+    checks:
+      - expr: chi_dao.phan_anh_da_xu_ly <= chi_dao.phan_anh_tiep_nhan
+        label: Đã xử lý không vượt tiếp nhận
+    owner_dept: van_phong
+    required: false
+
+  # ── II.1 Kinh tế ──
+  - slot_id: kinh_te.loi_dan
+    title: Lời dẫn lĩnh vực kinh tế
+    section: "II.1"
+    slot_type: narrative
+    owner_dept: kinh_te
+    required: false
+    narrative_template: >
+      Kinh tế trên địa bàn tiếp tục ổn định; thu, chi ngân sách bám sát dự toán; các công trình, dự án được đôn đốc
+      bảo đảm tiến độ giải ngân.
+  - slot_id: kinh_te.hkd
+    title: Hộ kinh doanh, chuyển đổi số hộ kinh doanh
+    section: "II.1.1"
+    slot_type: metric_sentence
+    indicators: [kinh_te.hkd_ho_so_tiep_nhan, kinh_te.hkd_ho_so_chap_thuan, kinh_te.hkd_tong, kinh_te.hkd_cds_tiep_can, kinh_te.hkd_cai_ung_dung]
+    template: >
+      tiếp nhận {kinh_te.hkd_ho_so_tiep_nhan} hồ sơ đăng ký hộ kinh doanh, chấp thuận {kinh_te.hkd_ho_so_chap_thuan} hồ sơ;
+      đã tiếp cận, hướng dẫn giải pháp chuyển đổi số cho {kinh_te.hkd_cds_tiep_can}/{kinh_te.hkd_tong} hộ kinh doanh
+      ({kinh_te.hkd_cds_tiep_can/kinh_te.hkd_tong:%}), trong đó {kinh_te.hkd_cai_ung_dung} hộ đã cài đặt ứng dụng
+    checks:
+      - expr: kinh_te.hkd_ho_so_chap_thuan <= kinh_te.hkd_ho_so_tiep_nhan
+        label: Hồ sơ chấp thuận không vượt hồ sơ tiếp nhận
+      - expr: kinh_te.hkd_cai_ung_dung <= kinh_te.hkd_cds_tiep_can
+        label: Hộ cài ứng dụng không vượt hộ đã tiếp cận
+      - expr: kinh_te.hkd_cds_tiep_can <= kinh_te.hkd_tong
+        label: Hộ đã tiếp cận không vượt tổng hộ kinh doanh
+    owner_dept: kinh_te
+  - slot_id: kinh_te.nong_nghiep_mt
+    title: Nông nghiệp, trật tự đô thị
+    section: "II.1.2"
+    slot_type: metric_sentence
+    indicators: [kt.tiem_phong_gia_suc, kt.dien_tich_gieo_trong, kt.vi_pham_xay_dung]
+    template: >
+      tiêm phòng cho {kt.tiem_phong_gia_suc} con gia súc, gia cầm; diện tích gieo trồng {kt.dien_tich_gieo_trong} ha;
+      xử lý {kt.vi_pham_xay_dung} trường hợp vi phạm trật tự xây dựng
+    owner_dept: kinh_te
+    required: false
+  - slot_id: qh_xd.ho_so
+    title: Hồ sơ quy hoạch, xây dựng
+    section: "II.1.3"
+    slot_type: metric_sentence
+    indicators: [qh.ho_so_tiep_nhan, qh.ho_so_dung_han, qh.ho_so_qua_han, xd.ho_so_tiep_nhan, xd.ho_so_da_giai_quyet, xd.ho_so_dang_xu_ly]
+    template: >
+      tiếp nhận {qh.ho_so_tiep_nhan} hồ sơ quy hoạch, giải quyết sớm và đúng hạn {qh.ho_so_dung_han} hồ sơ, quá hạn
+      {qh.ho_so_qua_han} hồ sơ; tiếp nhận {xd.ho_so_tiep_nhan} hồ sơ xây dựng, đã giải quyết {xd.ho_so_da_giai_quyet},
+      đang xử lý {xd.ho_so_dang_xu_ly} hồ sơ
+    checks:
+      - expr: qh.ho_so_dung_han + qh.ho_so_qua_han == qh.ho_so_tiep_nhan
+        label: Quy hoạch đúng hạn + quá hạn = tiếp nhận
+      - expr: xd.ho_so_da_giai_quyet + xd.ho_so_dang_xu_ly == xd.ho_so_tiep_nhan
+        label: Xây dựng đã giải quyết + đang xử lý = tiếp nhận
+    owner_dept: kinh_te
+  - slot_id: tai_chinh.dau_tu
+    title: Đầu tư công, giải phóng mặt bằng
+    section: "II.1.3"
+    slot_type: metric_sentence
+    indicators: [tai_chinh.giai_ngan, tai_chinh.so_du_an, tai_chinh.so_du_an_hoan_thanh, gpmb.phuong_an]
+    template: >
+      giải ngân vốn đầu tư công {tai_chinh.giai_ngan:unit}[[, {tai_chinh.giai_ngan:plan%}]]; đang triển khai
+      {tai_chinh.so_du_an} công trình, dự án, đã hoàn thành {tai_chinh.so_du_an_hoan_thanh} công trình[[; phê duyệt
+      {gpmb.phuong_an} phương án bồi thường, giải phóng mặt bằng]]
+    owner_dept: kinh_te
+  - slot_id: tnmt.ho_so
+    title: Hồ sơ tài nguyên, môi trường; phí vệ sinh môi trường
+    section: "II.1.4"
+    slot_type: metric_sentence
+    indicators: [tnmt.ho_so_tiep_nhan, tnmt.ho_so_da_giai_quyet, tnmt.ho_so_tre_han, tnmt.ho_so_dang_xu_ly, tnmt.vsmt_ho_nop, tnmt.vsmt_ty_le, tnmt.vsmt_tien]
+    template: >
+      tiếp nhận {tnmt.ho_so_tiep_nhan} hồ sơ tài nguyên, môi trường, đã giải quyết {tnmt.ho_so_da_giai_quyet} hồ sơ
+      ({tnmt.ho_so_tre_han} hồ sơ trễ hạn), đang xử lý {tnmt.ho_so_dang_xu_ly} hồ sơ; thu phí vệ sinh môi trường của
+      {tnmt.vsmt_ho_nop} hộ, đạt {tnmt.vsmt_ty_le}%, số tiền {tnmt.vsmt_tien:unit}
+    checks:
+      - expr: tnmt.ho_so_da_giai_quyet + tnmt.ho_so_dang_xu_ly == tnmt.ho_so_tiep_nhan
+        label: Đã giải quyết + đang xử lý = tiếp nhận
+      - expr: tnmt.ho_so_tre_han <= tnmt.ho_so_da_giai_quyet
+        label: Trễ hạn không vượt đã giải quyết
+    owner_dept: kinh_te
+  - slot_id: tai_chinh.thu_chi
+    title: Thu, chi ngân sách
+    section: "II.1.5"
+    slot_type: metric_sentence
+    indicators: [tai_chinh.thu_ns, tai_chinh.thu_noi_dia, tai_chinh.thu_ns_xa_huong, tai_chinh.chi_ns, tai_chinh.chi_thuong_xuyen, tai_chinh.chi_dau_tu]
+    template: >
+      tổng thu ngân sách nhà nước trên địa bàn {tai_chinh.thu_ns:unit}[[, {tai_chinh.thu_ns:plan%}]][[, {tai_chinh.thu_ns:yoy}]],
+      trong đó thu nội địa {tai_chinh.thu_noi_dia:unit}[[, {tai_chinh.thu_noi_dia:plan%}]], ngân sách phường được hưởng
+      {tai_chinh.thu_ns_xa_huong:unit}; tổng chi ngân sách {tai_chinh.chi_ns:unit}[[, {tai_chinh.chi_ns:plan%}]], gồm chi
+      thường xuyên {tai_chinh.chi_thuong_xuyen:unit} và chi đầu tư phát triển {tai_chinh.chi_dau_tu:unit}
+    checks:
+      - expr: tai_chinh.chi_thuong_xuyen + tai_chinh.chi_dau_tu <= tai_chinh.chi_ns
+        label: Chi thường xuyên + chi đầu tư không vượt tổng chi
+      - expr: tai_chinh.thu_noi_dia <= tai_chinh.thu_ns
+        label: Thu nội địa không vượt tổng thu
+      - expr: tai_chinh.thu_ns_xa_huong <= tai_chinh.thu_ns
+        label: Thu phường được hưởng không vượt tổng thu
+    owner_dept: kinh_te
+
+  # ── II.2 Văn hoá, xã hội ──
+  - slot_id: vhxh.loi_dan
+    title: Lời dẫn lĩnh vực văn hoá, xã hội
+    section: "II.2"
+    slot_type: narrative
+    owner_dept: van_hoa_xa_hoi
+    required: false
+    narrative_template: >
+      Các chính sách an sinh xã hội được thực hiện đầy đủ, kịp thời; công tác y tế dự phòng, tiêm chủng và chăm sóc
+      sức khoẻ ban đầu được duy trì.
+  - slot_id: y_te.tong_hop
+    title: Y tế, dân số
+    section: "II.2.1"
+    slot_type: metric_sentence
+    indicators: [y_te.luot_kham, y_te.luot_bhyt, y_te.luot_yhct, y_te.tre_tiem_chung, y_te.ca_dich_benh]
+    template: >
+      Trạm Y tế khám, chữa bệnh {y_te.luot_kham} lượt, trong đó {y_te.luot_bhyt} lượt bảo hiểm y tế và {y_te.luot_yhct}
+      lượt y học cổ truyền; tiêm chủng cho {y_te.tre_tiem_chung} trẻ em; ghi nhận {y_te.ca_dich_benh} ca bệnh truyền nhiễm
+    checks:
+      - expr: y_te.luot_bhyt + y_te.luot_yhct <= y_te.luot_kham
+        label: Lượt BHYT + YHCT không vượt tổng lượt khám
+    owner_dept: y_te
+  - slot_id: csxh.tong_hop
+    title: Chính sách xã hội, giảm nghèo
+    section: "II.2.2"
+    slot_type: metric_sentence
+    indicators: [csxh.tro_cap_luot, csxh.tro_cap_tien, csxh.ho_ngheo, csxh.ho_can_ngheo]
+    template: >
+      chi trả trợ cấp cho {csxh.tro_cap_luot} lượt đối tượng với kinh phí {csxh.tro_cap_tien:unit}; toàn phường còn
+      {csxh.ho_ngheo} hộ nghèo[[ ({csxh.ho_ngheo:kh})]] và {csxh.ho_can_ngheo} hộ cận nghèo
+    owner_dept: van_hoa_xa_hoi
+  - slot_id: vhxh.tong_hop
+    title: Văn hoá, lao động, việc làm
+    section: "II.2.3"
+    slot_type: metric_sentence
+    indicators: [vhxh.viec_lam_moi, vhxh.the_bhyt, vhxh.gia_dinh_van_hoa]
+    template: >
+      giải quyết việc làm mới cho {vhxh.viec_lam_moi} lao động[[, {vhxh.viec_lam_moi:plan%}]]; cấp {vhxh.the_bhyt} thẻ BHYT
+      cho đối tượng chính sách; tỷ lệ gia đình văn hoá đạt {vhxh.gia_dinh_van_hoa}%
+    owner_dept: van_hoa_xa_hoi
+    required: false
+
+  # ── II.3 KHCN – CĐS ──
+  - slot_id: cds.tong_hop
+    title: Khoa học công nghệ, chuyển đổi số
+    section: "II.3"
+    slot_type: metric_sentence
+    indicators: [cds.can_bo_ky_nang_so, cds.can_bo_tong, cds.to_cong_nghe_so]
+    template: >
+      {cds.can_bo_ky_nang_so}/{cds.can_bo_tong} cán bộ, công chức, viên chức hoàn thành chương trình bồi dưỡng kỹ năng số
+      ({cds.can_bo_ky_nang_so/cds.can_bo_tong:%})[[; {cds.to_cong_nghe_so} tổ công nghệ số cộng đồng duy trì hoạt động]]
+    checks:
+      - expr: cds.can_bo_ky_nang_so <= cds.can_bo_tong
+        label: Số hoàn thành không vượt tổng cán bộ
+    owner_dept: van_phong
+    required: false
+
+  # ── II.4 Nội vụ – CCHC ──
+  - slot_id: tthc.mot_cua.tong_hop
+    title: Giải quyết thủ tục hành chính tại Bộ phận Một cửa
+    section: "II.4"
+    slot_type: metric_sentence
+    indicators: [tthc.tiep_nhan, tthc.ty_le_truc_tuyen, tthc.giai_quyet, tthc.truoc_han, tthc.qua_han, tthc.dang_xu_ly]
+    template: >
+      đã tiếp nhận {tthc.tiep_nhan} hồ sơ[[ ({tthc.ty_le_truc_tuyen}% trực tuyến)]]; giải quyết {tthc.giai_quyet} hồ sơ
+      ({tthc.giai_quyet/tthc.tiep_nhan:%}), trong đó {tthc.truoc_han} trước hạn, {tthc.qua_han} quá hạn, {tthc.dang_xu_ly}
+      hồ sơ đang trong thời hạn[[; {tthc.tiep_nhan:yoy}]]
+    checks:
+      - expr: tthc.truoc_han + tthc.qua_han == tthc.giai_quyet
+        label: Trước hạn + quá hạn = đã giải quyết
+      - expr: tthc.giai_quyet + tthc.dang_xu_ly == tthc.tiep_nhan
+        label: Đã giải quyết + đang xử lý = tổng tiếp nhận
+    owner_dept: hanh_chinh_cong
+
+  # ── II.5 QPAN – Nội chính ──
+  - slot_id: noi_chinh.loi_dan
+    title: Lời dẫn lĩnh vực quốc phòng, an ninh, nội chính
+    section: "II.5"
+    slot_type: narrative
+    owner_dept: van_phong
+    required: false
+    narrative_template: >
+      Công tác tư pháp, tiếp công dân, cải cách hành chính và bảo đảm an ninh trật tự được triển khai đồng bộ, kịp thời.
+  - slot_id: tu_phap.tong_hop
+    title: Tư pháp, hộ tịch, hoà giải
+    section: "II.5.1"
+    slot_type: metric_sentence
+    indicators: [tu_phap.khai_sinh, tu_phap.khai_tu, tu_phap.ket_hon, tu_phap.chung_thuc, tu_phap.hoa_giai_tiep_nhan, tu_phap.hoa_giai_thanh]
+    template: >
+      đăng ký khai sinh {tu_phap.khai_sinh} trường hợp, khai tử {tu_phap.khai_tu} trường hợp, kết hôn {tu_phap.ket_hon} cặp;
+      chứng thực {tu_phap.chung_thuc} việc; tiếp nhận {tu_phap.hoa_giai_tiep_nhan} vụ việc hoà giải, hoà giải thành
+      {tu_phap.hoa_giai_thanh} vụ ({tu_phap.hoa_giai_thanh/tu_phap.hoa_giai_tiep_nhan:%})
+    checks:
+      - expr: tu_phap.hoa_giai_thanh <= tu_phap.hoa_giai_tiep_nhan
+        label: Hoà giải thành không vượt số vụ tiếp nhận
+    owner_dept: van_phong
+  - slot_id: tiep_dan.don_thu
+    title: Tiếp công dân, đơn thư
+    section: "II.5.2"
+    slot_type: metric_sentence
+    indicators: [tiep_dan.luot_tiep, tiep_dan.don_tiep_nhan, tiep_dan.don_da_giai_quyet, tiep_dan.don_dang_xu_ly, tiep_dan.gq_khieu_nai, tiep_dan.gq_to_cao, tiep_dan.gq_kien_nghi]
+    template: >
+      tiếp {tiep_dan.luot_tiep} lượt công dân; tiếp nhận {tiep_dan.don_tiep_nhan} đơn thư, đã giải quyết
+      {tiep_dan.don_da_giai_quyet} đơn (gồm {tiep_dan.gq_khieu_nai} khiếu nại, {tiep_dan.gq_to_cao} tố cáo,
+      {tiep_dan.gq_kien_nghi} kiến nghị, phản ánh), đang xử lý {tiep_dan.don_dang_xu_ly} đơn
+    checks:
+      - expr: tiep_dan.don_da_giai_quyet + tiep_dan.don_dang_xu_ly == tiep_dan.don_tiep_nhan
+        label: Đã giải quyết + đang xử lý = tổng đơn tiếp nhận
+      - expr: tiep_dan.gq_khieu_nai + tiep_dan.gq_to_cao + tiep_dan.gq_kien_nghi == tiep_dan.don_da_giai_quyet
+        label: Khiếu nại + tố cáo + kiến nghị = tổng đơn đã giải quyết
+    owner_dept: cong_an
+  - slot_id: an_ninh.tong_hop
+    title: An ninh, trật tự
+    section: "II.5.3"
+    slot_type: metric_sentence
+    indicators: [an_ninh.vu_viec, an_ninh.vu_viec_xu_ly, an_ninh.tai_nan_gt, an_ninh.thuong_tru, an_ninh.tam_tru]
+    template: >
+      xảy ra {an_ninh.vu_viec} vụ việc về an ninh trật tự, đã điều tra, xử lý {an_ninh.vu_viec_xu_ly} vụ
+      ({an_ninh.vu_viec_xu_ly/an_ninh.vu_viec:%}); {an_ninh.tai_nan_gt} vụ tai nạn giao thông; quản lý
+      {an_ninh.thuong_tru} nhân khẩu thường trú và {an_ninh.tam_tru} nhân khẩu tạm trú
+    checks:
+      - expr: an_ninh.vu_viec_xu_ly <= an_ninh.vu_viec
+        label: Vụ việc đã xử lý không vượt số vụ xảy ra
+    owner_dept: cong_an
+  - slot_id: quoc_phong.tong_hop
+    title: Quốc phòng, quân sự địa phương
+    section: "II.5.4"
+    slot_type: metric_sentence
+    indicators: [quoc_phong.thanh_nien_nhap_ngu, quoc_phong.dan_quan_huan_luyen]
+    template: >
+      hoàn thành giao {quoc_phong.thanh_nien_nhap_ngu} thanh niên nhập ngũ[[ ({quoc_phong.thanh_nien_nhap_ngu:plan%})]];
+      huấn luyện {quoc_phong.dan_quan_huan_luyen} dân quân
+    owner_dept: quan_su
+    required: false
+
+  # ── Bảng tổng hợp và nhiệm vụ kỳ tới ──
+  - slot_id: tong_hop.bang_chi_tieu
+    title: Bảng tổng hợp một số chỉ tiêu chủ yếu
+    section: "II"
+    slot_type: metric_table
+    indicators: [tai_chinh.thu_ns, tai_chinh.thu_noi_dia, tai_chinh.chi_ns, tai_chinh.giai_ngan, tthc.tiep_nhan, tthc.qua_han, kinh_te.hkd_cds_tiep_can, tnmt.vsmt_ty_le, y_te.luot_kham, csxh.ho_ngheo, cds.can_bo_ky_nang_so]
+    owner_dept: van_phong
+    required: false
+  - slot_id: nhiem_vu.ky_toi
+    title: Nhiệm vụ trọng tâm kỳ tới
+    section: "III"
+    slot_type: next_tasks
+    owner_dept: van_phong
+    required: false
+    narrative_template: >
+      Tập trung hoàn thành các chỉ tiêu chưa đạt kế hoạch năm; đôn đốc giải ngân vốn đầu tư công; giải quyết dứt điểm
+      đơn thư còn tồn đọng; chuẩn bị tốt các nhiệm vụ quốc phòng, an ninh cuối năm.

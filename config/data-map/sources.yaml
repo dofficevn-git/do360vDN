@@ -1,0 +1,169 @@
+# Data Map / Data Catalog (Blueprint V0.5 mục 20, 30) — DO360 biết dữ liệu nằm ở đâu, ai sở hữu, kết nối thế nào.
+# Mỗi dataset = một Data Contract rút gọn. API GET /admin/data-map ghép thêm số đo thật từ kho (lần nạp gần nhất, chất lượng,
+# báo cáo/dashboard đang dùng). ingestion: API | FILE | DOCUMENT | SCAN | HUMAN. structured: structured | semi | unstructured.
+version: 1
+sources:
+  - key: qlvb_lgsp
+    name: Hệ thống Quản lý văn bản (trục LGSP Đà Nẵng)
+    owner: van_phong
+    steward: Văn thư
+    ingestion: API
+    api_available: true
+    status: planned   # chưa có khoá LGSP → đang chạy giả lập (QLVB_MODE=sim)
+    permission_class: INTERNAL
+    datasets:
+      - { code: VB_DEN_DI, name: Sổ văn bản đến, đi, object_types: [van_ban], ownership: MASTER, structured: structured, refresh: daily,
+          indicators: [chi_dao.vb_den, chi_dao.vb_di, chi_dao.vb_di_quyet_dinh, chi_dao.vb_di_bao_cao, chi_dao.vb_di_cong_van, chi_dao.vb_di_to_trinh, chi_dao.vb_di_ke_hoach, chi_dao.vb_di_thong_bao, chi_dao.vb_di_giay_moi, chi_dao.vb_di_phieu_chuyen],
+          primary_key: external_id, quality_threshold: 0.98, probe: { table: qlvb_document } }
+  - key: tthc_thanh_pho
+    name: Hệ thống thông tin giải quyết TTHC thành phố
+    owner: hanh_chinh_cong
+    steward: Giám đốc Trung tâm phục vụ HCC
+    ingestion: FILE
+    api_available: false
+    status: active
+    permission_class: INTERNAL
+    datasets:
+      - { code: MOT_CUA_TONG_HOP, name: Tổng hợp hồ sơ một cửa (file xuất), object_types: [ho_so], ownership: MASTER, structured: structured, refresh: monthly,
+          indicators: [tthc.tiep_nhan, tthc.giai_quyet, tthc.truoc_han, tthc.qua_han, tthc.dang_xu_ly, tthc.ty_le_truc_tuyen], probe: { rule: mot_cua_tong_hop_xlsx } }
+      - { code: HO_SO_QH_XD_TNMT, name: Hồ sơ quy hoạch, xây dựng, tài nguyên môi trường, object_types: [ho_so], ownership: MASTER, structured: structured, refresh: monthly,
+          indicators: [qh.ho_so_tiep_nhan, qh.ho_so_dung_han, qh.ho_so_qua_han, xd.ho_so_tiep_nhan, xd.ho_so_da_giai_quyet, xd.ho_so_dang_xu_ly, tnmt.ho_so_tiep_nhan, tnmt.ho_so_da_giai_quyet, tnmt.ho_so_tre_han, tnmt.ho_so_dang_xu_ly], probe: { rule: bieu_mau_kinh_te_xlsx } }
+  - key: ke_toan_ngan_sach
+    name: Phần mềm kế toán ngân sách xã (MISA Bamboo / Kho bạc)
+    owner: kinh_te
+    steward: Kế toán ngân sách
+    ingestion: FILE
+    api_available: false
+    status: active
+    permission_class: INTERNAL
+    datasets:
+      - { code: THU_CHI_NS, name: Tổng hợp thu chi ngân sách, object_types: [don_vi], ownership: MASTER, structured: structured, refresh: monthly,
+          indicators: [tai_chinh.thu_ns, tai_chinh.thu_noi_dia, tai_chinh.thu_ns_xa_huong, tai_chinh.chi_ns, tai_chinh.chi_thuong_xuyen, tai_chinh.chi_dau_tu, tai_chinh.giai_ngan], probe: { rule: so_ke_toan_xlsx } }
+  - key: so_du_an
+    name: Sổ theo dõi dự án, công trình (Phòng Kinh tế)
+    owner: kinh_te
+    steward: Chuyên viên đầu tư công
+    ingestion: HUMAN
+    api_available: false
+    status: active
+    permission_class: INTERNAL
+    datasets:
+      - { code: DU_AN_360, name: Dự án, công trình đang triển khai (Object + Event), object_types: [du_an], ownership: LOCAL_MASTER, structured: structured, refresh: weekly,
+          indicators: [tai_chinh.so_du_an, tai_chinh.so_du_an_hoan_thanh, gpmb.phuong_an, gpmb.gia_tri_boi_thuong], probe: { object_type: du_an } }
+  - key: dang_ky_kinh_doanh
+    name: Hệ thống đăng ký hộ kinh doanh / doanh nghiệp (Thành phố)
+    owner: kinh_te
+    steward: Chuyên viên công thương
+    ingestion: FILE
+    api_available: false
+    status: active
+    permission_class: INTERNAL
+    datasets:
+      - { code: HKD_DANH_SACH, name: Danh sách hộ kinh doanh (REFERENCE) + sự kiện CĐS (LOCAL), object_types: [ho_kinh_doanh], ownership: REFERENCE, structured: structured, refresh: monthly,
+          indicators: [kinh_te.hkd_tong, kinh_te.hkd_ho_so_tiep_nhan, kinh_te.hkd_ho_so_chap_thuan, kinh_te.hkd_cds_tiep_can, kinh_te.hkd_cai_ung_dung, kinh_te.doanh_nghiep_moi], probe: { object_type: ho_kinh_doanh } }
+  - key: phi_vsmt
+    name: Phần mềm thu phí vệ sinh môi trường
+    owner: kinh_te
+    steward: Chuyên viên môi trường
+    ingestion: FILE
+    api_available: false
+    status: active
+    permission_class: INTERNAL
+    datasets:
+      - { code: VSMT, name: Thu phí vệ sinh môi trường theo hộ, object_types: [dia_ban], ownership: MASTER, structured: structured, refresh: monthly,
+          indicators: [tnmt.vsmt_ho_nop, tnmt.vsmt_ty_le, tnmt.vsmt_tien], probe: { rule: bieu_mau_kinh_te_xlsx } }
+  - key: tram_y_te
+    name: Phần mềm quản lý khám chữa bệnh Trạm Y tế
+    owner: y_te
+    steward: Trạm trưởng
+    ingestion: FILE
+    api_available: false
+    status: active
+    permission_class: CONFIDENTIAL   # dữ liệu sức khoẻ — chỉ nhận số tổng hợp
+    datasets:
+      - { code: KCB_TONG_HOP, name: Tổng hợp khám chữa bệnh, tiêm chủng, object_types: [don_vi], ownership: MASTER, structured: structured, refresh: monthly,
+          indicators: [y_te.luot_kham, y_te.luot_bhyt, y_te.luot_yhct, y_te.tre_tiem_chung, y_te.tiem_chung_mui, y_te.tre_tiem_du, y_te.ca_dich_benh], probe: { rule: bieu_mau_y_te_xlsx } }
+  - key: so_tiep_dan
+    name: Phần mềm quản lý đơn thư, tiếp công dân (Công an phường)
+    owner: cong_an
+    steward: Trưởng Công an phường
+    ingestion: FILE
+    api_available: false
+    status: active
+    permission_class: CONFIDENTIAL
+    datasets:
+      - { code: DON_THU, name: Sổ tiếp công dân, xử lý đơn thư, object_types: [don_thu], ownership: MASTER, structured: structured, refresh: monthly,
+          indicators: [tiep_dan.luot_tiep, tiep_dan.don_tiep_nhan, tiep_dan.don_da_giai_quyet, tiep_dan.don_dang_xu_ly, tiep_dan.gq_khieu_nai, tiep_dan.gq_to_cao, tiep_dan.gq_kien_nghi], probe: { rule: so_tiep_dan_xlsx } }
+      - { code: AN_NINH, name: Vụ việc an ninh trật tự, cư trú, object_types: [vu_viec], ownership: MASTER, structured: semi, refresh: monthly,
+          indicators: [an_ninh.vu_viec, an_ninh.vu_viec_xu_ly, an_ninh.tai_nan_gt, an_ninh.thuong_tru, an_ninh.tam_tru], probe: { rule: bieu_mau_cong_an_xlsx } }
+  - key: bieu_mau_phong
+    name: Biểu mẫu Excel chuẩn các phòng (config/templates/forms)
+    owner: van_phong
+    steward: Chánh Văn phòng
+    ingestion: FILE
+    api_available: false
+    status: active
+    permission_class: INTERNAL
+    datasets:
+      - { code: BIEU_MAU_VP, name: Tư pháp, hộ tịch, hoà giải; KHCN–CĐS, object_types: [don_vi], ownership: LOCAL_MASTER, structured: structured, refresh: monthly,
+          indicators: [tu_phap.khai_sinh, tu_phap.khai_tu, tu_phap.ket_hon, tu_phap.chung_thuc, tu_phap.hoa_giai_tiep_nhan, tu_phap.hoa_giai_thanh, cds.can_bo_tong, cds.can_bo_ky_nang_so, cds.to_cong_nghe_so], probe: { rule: bieu_mau_van_phong_xlsx } }
+      - { code: BIEU_MAU_VHXH, name: Chính sách xã hội, văn hoá, việc làm, object_types: [don_vi], ownership: LOCAL_MASTER, structured: structured, refresh: monthly,
+          indicators: [csxh.tro_cap_luot, csxh.tro_cap_tien, csxh.ho_ngheo, csxh.ho_can_ngheo, vhxh.viec_lam_moi, vhxh.the_bhyt, vhxh.gia_dinh_van_hoa], probe: { rule: bieu_mau_van_hoa_xa_hoi_xlsx } }
+      - { code: BIEU_MAU_QS, name: Quốc phòng, quân sự địa phương, object_types: [don_vi], ownership: LOCAL_MASTER, structured: structured, refresh: quarterly,
+          indicators: [quoc_phong.thanh_nien_nhap_ngu, quoc_phong.dan_quan_huan_luyen], probe: { rule: bieu_mau_quan_su_xlsx } }
+      - { code: BIEU_MAU_KT, name: Nông nghiệp, môi trường, trật tự đô thị, object_types: [don_vi], ownership: LOCAL_MASTER, structured: structured, refresh: monthly,
+          indicators: [kt.tiem_phong_gia_suc, kt.dien_tich_gieo_trong, kt.vi_pham_xay_dung, tnmt.vi_pham_dat_dai], probe: { rule: bieu_mau_kinh_te_xlsx } }
+  - key: giao_viec_do360
+    name: Sổ giao việc DO360 (nhiệm vụ, kết luận họp, nhiệm vụ kỳ tới)
+    owner: van_phong
+    steward: Chánh Văn phòng
+    ingestion: HUMAN
+    api_available: true
+    status: active
+    permission_class: INTERNAL
+    datasets:
+      - { code: NHIEM_VU, name: Nhiệm vụ được giao và tiến độ (DERIVED → chỉ tiêu chỉ đạo điều hành), object_types: [nhiem_vu], ownership: LOCAL_MASTER, structured: structured, refresh: daily,
+          indicators: [chi_dao.nhiem_vu_giao, chi_dao.nhiem_vu_hoan_thanh, chi_dao.nhiem_vu_qua_han], probe: { table: tasks } }
+  - key: ioc_1022
+    name: Tổng đài 1022 / IOC thành phố (phản ánh, kiến nghị)
+    owner: van_phong
+    steward: Chuyên viên tổng hợp
+    ingestion: API
+    api_available: true
+    status: planned
+    permission_class: INTERNAL
+    datasets:
+      - { code: PHAN_ANH, name: Phản ánh, kiến nghị chuyển về phường, object_types: [phan_anh], ownership: MASTER, structured: structured, refresh: daily,
+          indicators: [chi_dao.phan_anh_tiep_nhan, chi_dao.phan_anh_da_xu_ly, chi_dao.phan_anh_qua_han] }
+  - key: kpi_module
+    name: Module KPI cán bộ (QĐ 761/QĐ-UBND)
+    owner: van_phong
+    steward: Chánh Văn phòng
+    ingestion: API
+    api_available: true
+    status: active
+    permission_class: CONFIDENTIAL
+    datasets:
+      - { code: KPI_SCORES, name: Điểm KPI cán bộ theo kỳ, object_types: [can_bo], ownership: DERIVED, structured: structured, refresh: monthly,
+          indicators: [kpi.so_can_bo_danh_gia, kpi.diem_trung_binh, kpi.ty_le_viec_dung_han], probe: { table: kpi_score } }
+  - key: csdl_dan_cu
+    name: CSDL quốc gia về dân cư (qua Thành phố)
+    owner: cong_an
+    steward: Công an phường
+    ingestion: API
+    api_available: false
+    status: planned
+    permission_class: RESTRICTED
+    datasets:
+      - { code: DAN_CU_THAM_CHIEU, name: Nhân khẩu thường trú, tạm trú theo địa bàn (chỉ REFERENCE số tổng hợp), object_types: [dia_ban], ownership: REFERENCE, structured: structured, refresh: monthly,
+          indicators: [an_ninh.thuong_tru, an_ninh.tam_tru] }
+  - key: csdl_dat_dai
+    name: CSDL đất đai thành phố
+    owner: kinh_te
+    steward: Chuyên viên địa chính
+    ingestion: API
+    api_available: false
+    status: planned
+    permission_class: RESTRICTED
+    datasets:
+      - { code: THUA_DAT, name: Thửa đất liên quan dự án, GPMB (REFERENCE), object_types: [thua_dat], ownership: REFERENCE, structured: structured, refresh: on_change, indicators: [] }

@@ -1,0 +1,21 @@
+# Luật bóc tách: báo cáo thu chi ngân sách (PDF có lớp chữ) của Phòng Kinh tế — mẫu câu.
+# Tổng thu ghi "352.732 tỷ đồng" (dấu chấm) bị đánh dấu MƠ HỒ → tin cậy 0,6, Quality Gate bắt người nhìn lại (lỗi thật số 2 — Blueprint V0.5 mục 50.7).
+source_type: tai_chinh_bao_cao_pdf
+version: 1
+file_kind: pdf_text
+domain: tai_chinh
+match:
+  text_contains: "ngân sách"
+sentences:
+  - pattern: "Tổng thu ngân sách trên địa bàn {a:number} tỷ đồng"
+    groups: { a: tai_chinh.thu_ns }
+  - pattern: "thu nội địa {a:number} tỷ đồng"
+    groups: { a: tai_chinh.thu_noi_dia }
+  - pattern: "ngân sách phường được hưởng {a:number} tỷ đồng"
+    groups: { a: tai_chinh.thu_ns_xa_huong }
+  - pattern: "Tổng chi ngân sách {a:number} tỷ đồng"
+    groups: { a: tai_chinh.chi_ns }
+  - pattern: "chi thường xuyên {a:number} tỷ đồng"
+    groups: { a: tai_chinh.chi_thuong_xuyen }
+  - pattern: "chi đầu tư phát triển {a:number} tỷ đồng"
+    groups: { a: tai_chinh.chi_dau_tu }

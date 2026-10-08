@@ -1,0 +1,19 @@
+# Phân loại lĩnh vực cho văn bản QLVB (sổ đi/đến) bằng từ khoá trong loại + trích yếu → event_log.domain
+# (khớp dim_indicator.domain để slot event_list lọc theo lĩnh vực). Luật đầu tiên khớp thắng; không khớp → domain null.
+rules:
+  - domain: tthc
+    keywords: [thủ tục hành chính, một cửa, hành chính công, dịch vụ công, hồ sơ hành chính]
+  - domain: tai_chinh
+    keywords: [ngân sách, dự toán, quyết toán, tài chính, kinh phí, giải ngân, đầu tư công]
+  - domain: dat_dai
+    keywords: [đất đai, thu hồi đất, giải phóng mặt bằng, quy hoạch, xây dựng, trật tự đô thị]
+  - domain: van_hoa_xa_hoi
+    keywords: [văn hóa, thể thao, giáo dục, lao động, người có công, bảo trợ, giảm nghèo, an sinh]
+  - domain: y_te
+    keywords: [y tế, dịch bệnh, tiêm chủng, khám chữa bệnh, an toàn thực phẩm]
+  - domain: an_ninh
+    keywords: [an ninh, trật tự, phòng cháy, ma túy, cư trú, công an]
+  - domain: quoc_phong
+    keywords: [quân sự, quốc phòng, tuyển quân, dân quân, nghĩa vụ quân sự]
+  - domain: kpi
+    keywords: [đánh giá, xếp loại, hiệu quả công việc, kpi]

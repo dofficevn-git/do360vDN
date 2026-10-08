@@ -1,0 +1,40 @@
+# Tiêu chí KPI cán bộ, công chức — CẤU HÌNH, đổi theo quy chế địa phương không sửa code.
+# Tham chiếu: QĐ 761/QĐ-UBND ngày 18/5/2026 (Đà Nẵng) về đánh giá, xếp loại theo hiệu quả công việc — CHỜ đối chiếu
+# tiêu chí/trọng số thật của module KPI; bộ dưới đây là mẫu theo bảng "nguồn → tiêu chí điển hình" trong tài liệu thiết kế.
+#
+# Biến dùng trong formula (tính theo từng cán bộ trong kỳ):
+#   task_total task_done task_on_time task_overdue   việc được giao (tasks: giao việc + phân công từ QLVB)
+#   vb_total vb_done vb_on_time                        văn bản đến được phân công xử lý (qlvb_document.nguoi_xu_ly_email)
+#   so_nop so_bi_tra so_dat                            số liệu đã nộp vào kho / bị loại hoặc cách ly / đạt
+# score = clamp(value, 0, max_score) / max_score × weight. Tổng trọng số = 100 → tổng điểm tối đa 100.
+version: 1
+regulation_ref: QĐ 761/QĐ-UBND 18/5/2026 (mẫu, chờ đối chiếu)
+criteria:
+  - id: kpi.viec_dung_han
+    name: Tỷ lệ nhiệm vụ hoàn thành đúng hạn
+    source: task
+    formula: task_on_time / task_total * 100
+    weight: 40
+    unit: "%"
+    description: Nhiệm vụ được giao (giao việc, kết luận họp, phân công văn bản) hoàn thành trước hoặc đúng hạn.
+  - id: kpi.van_ban_dung_han
+    name: Tỷ lệ văn bản xử lý đúng hạn
+    source: qlvb
+    formula: vb_on_time / vb_total * 100
+    weight: 30
+    unit: "%"
+    description: Văn bản đến được phân công xử lý trên QLVB, hoàn thành trong hạn.
+  - id: kpi.ky_luat_bao_cao
+    name: Chất lượng số liệu báo cáo
+    source: do360
+    formula: so_dat / so_nop * 100
+    weight: 20
+    unit: "%"
+    description: Tỷ lệ số liệu nộp vào kho không bị loại hoặc cách ly.
+  - id: kpi.danh_gia_lanh_dao
+    name: Đánh giá định tính của lãnh đạo
+    source: manual
+    formula: diem_lanh_dao
+    weight: 10
+    unit: điểm
+    description: Lãnh đạo nhập qua POST /admin/kpi/scores/import (status approved).

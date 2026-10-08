@@ -1,0 +1,44 @@
+# Lĩnh vực: Khoa học công nghệ – chuyển đổi số (mục riêng trong Báo cáo 436, Nghị quyết 57). Nguồn: sổ theo dõi của Văn phòng,
+# hệ thống đào tạo kỹ năng số (export), DO360 Data Health (DERIVED).
+# Số mẫu Báo cáo 436: 371/371 cán bộ, công chức, viên chức hoàn thành chương trình kỹ năng số (100%).
+domain: khcn_cds
+owner_dept: van_phong
+regulation_ref: Báo cáo 436/BC-UBND (mục KHCN – CĐS)
+indicators:
+  - id: cds.can_bo_tong
+    name: Cán bộ, công chức, viên chức thuộc diện bồi dưỡng kỹ năng số
+    unit: người
+    value_type: integer
+    aggregation: point_in_time
+    capture_method: export
+  - id: cds.can_bo_ky_nang_so
+    name: Cán bộ, công chức, viên chức hoàn thành chương trình kỹ năng số
+    unit: người
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: cds.to_cong_nghe_so
+    name: Tổ công nghệ số cộng đồng đang hoạt động
+    unit: tổ
+    value_type: integer
+    aggregation: point_in_time
+    capture_method: form
+  - id: cds.nhiem_vu_nq57_giao
+    name: Nhiệm vụ Nghị quyết 57 được giao
+    unit: nhiệm vụ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: form
+  - id: cds.nhiem_vu_nq57_hoan_thanh
+    name: Nhiệm vụ Nghị quyết 57 đã hoàn thành
+    unit: nhiệm vụ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: form
+  - id: cds.data_health
+    name: Chỉ số sức khoẻ dữ liệu DO360 (trung bình 6 tiêu chí)
+    unit: "%"
+    value_type: percent
+    aggregation: point_in_time
+    capture_method: api
+    definition: DERIVED — GET /admin/data-health tính từ kho (đúng, đủ, sạch, sống, thống nhất, dùng chung).

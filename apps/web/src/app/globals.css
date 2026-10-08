@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   DO360 cấp xã — nền tảng giao diện (06/10/2026)
+   Chữ: Be Vietnam Pro (next/font, --font-sans). Nền phẳng, viền mảnh, màu = trạng thái.
+   ============================================================ */
+
+:root {
+  --primary: #0F3D6E;
+  --primary-strong: #0D3560;
+  --primary-dark: #071C36;
+  --primary-glow: #1B6BD6;
+  --primary-rgb: 15, 61, 110;
+  --primary-text: #ffffff;
+
+  --accent: #C9962B;
+  --accent-light: #E6C06C;
+
+  --ds-bg: #F4F6F8;
+  --ds-bg-soft: #EDF1F4;
+  --ds-surface: #ffffff;
+  --ds-border: #E2E8F0;
+  --ds-border-strong: #CBD5E1;
+
+  --ds-text-1: #0f172a;
+  --ds-text-2: #1e293b;
+  --ds-text-3: #334155;
+  --ds-text-4: #475569;
+  --ds-text-5: #64748b;
+
+  --success: #15803d;
+  --success-soft: #EAF6EE;
+  --success-border: #B9DFC5;
+  --success-text: #166534;
+
+  --warning: #b45309;
+  --warning-soft: #FBF3E1;
+  --warning-border: #EAD3A0;
+  --warning-text: #8A5A0B;
+
+  --danger: #b91c1c;
+  --danger-soft: #FBEAEA;
+  --danger-border: #EFB8B8;
+  --danger-text: #991b1b;
+
+  --info: #1d5fdb;
+  --info-soft: #E8F0FB;
+  --info-border: #B7CFF0;
+  --info-text: #123a73;
+
+  --ring: rgba(27, 107, 214, 0.45);
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--ds-bg);
+  color: var(--ds-text-1);
+  font-family: var(--font-sans), system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Focus rõ cho mọi phần tử tương tác — chỉ khi điều hướng bằng bàn phím */
+:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+button, a, input, select, textarea, [role="button"] { cursor: pointer; }
+input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="number"], select, textarea { cursor: text; }
+select { cursor: pointer; }
+button:disabled, [aria-disabled="true"] { cursor: not-allowed; }
+
+/* Người dùng tắt chuyển động → bỏ mọi animation/transition */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+/* Số dạng bảng — mọi giá trị số (stat, bảng, phân trang) */
+.kpi-num { font-variant-numeric: tabular-nums; }
+
+/* Thẻ phẳng chuẩn: viền mảnh, bo 12px, không bóng. Dùng cho mọi khối nội dung. */
+.card {
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-border);
+  border-radius: 12px;
+}
+.card-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 20px; border-bottom: 1px solid var(--ds-border);
+}
+.card-title { font-size: 14px; font-weight: 600; color: var(--ds-text-1); margin: 0; }
+
+/* Bảng dữ liệu trong DataTable (.tbl-wrap > table) — trang chỉ cần viết <table>/<thead>/<tbody> */
+.tbl-wrap > table { width: 100%; font-size: 13.5px; border-collapse: separate; border-spacing: 0; }
+.tbl-wrap > table > thead th {
+  position: sticky; top: 0; z-index: 1;
+  background: #F8FAFC; color: var(--ds-text-4); font-size: 12.5px; font-weight: 600;
+  border-bottom: 1px solid var(--ds-border); white-space: nowrap;
+}
+.tbl-wrap > table > tbody > tr > td { border-bottom: 1px solid #EEF2F6; vertical-align: middle; }
+.tbl-wrap > table > tbody > tr:last-child > td { border-bottom: 0; }
+
+/* Hover hàng — tint xanh rất nhẹ */
+.row-hover { transition: background-color 120ms ease; }
+.row-hover:hover { background-color: rgba(15, 61, 110, 0.045); }
+
+/* Scrollbar mảnh */
+.sidebar-scroll, .sidebar-scroll-light { overflow-y: auto; overflow-x: hidden; scrollbar-width: thin; scrollbar-color: rgba(15, 23, 42, 0.14) transparent; }
+.sidebar-scroll::-webkit-scrollbar, .sidebar-scroll-light::-webkit-scrollbar { width: 5px; }
+.sidebar-scroll::-webkit-scrollbar-thumb, .sidebar-scroll-light::-webkit-scrollbar-thumb { background: rgba(15, 23, 42, 0.14); border-radius: 3px; }
+.sidebar-scroll::-webkit-scrollbar-track, .sidebar-scroll-light::-webkit-scrollbar-track { background: transparent; }
+
+/* Entrance cho popover/modal — chuyển động duy nhất không do người dùng kích hoạt */
+@keyframes fade-in-up { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+.fade-in-up { animation: fade-in-up 160ms ease-out; }
+
+/* Skeleton khi tải — giữ chỗ để nội dung không nhảy */
+.skeleton {
+  background: linear-gradient(90deg, #EEF2F6 0%, #F7F9FB 40%, #EEF2F6 80%);
+  background-size: 800px 100%;
+  animation: shimmer 1.4s linear infinite;
+  border-radius: 6px;
+}
+@keyframes shimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+
+/* Dải kỳ báo cáo — điểm nhấn duy nhất mang màu đậm */
+.period-band {
+  background: linear-gradient(180deg, #0F3D6E 0%, #0B2D52 100%);
+  color: #fff; border-radius: 14px;
+}
+.period-band .step { color: rgba(255, 255, 255, 0.55); }
+.period-band .step.done { color: #fff; }
+.period-band .step.current { color: #FFD66B; }

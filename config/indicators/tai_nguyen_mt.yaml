@@ -1,0 +1,55 @@
+# Lĩnh vực: Tài nguyên – môi trường (mục II.1). Nguồn: Hệ thống thông tin giải quyết TTHC (hồ sơ TNMT), sổ theo dõi vi phạm đất đai,
+# phần mềm thu phí vệ sinh môi trường (export).
+# Số mẫu Báo cáo 436: 587 hồ sơ TNMT (551 đã giải quyết, 1 trễ hạn, 36 đang xử lý); 5.330 hộ nộp phí VSMT, 98,39%, 979.340.000 đồng.
+domain: tai_nguyen_mt
+owner_dept: kinh_te
+regulation_ref: Báo cáo 436/BC-UBND (mục II.1)
+indicators:
+  - id: tnmt.ho_so_tiep_nhan
+    name: Hồ sơ tài nguyên, môi trường tiếp nhận
+    unit: hồ sơ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: tnmt.ho_so_da_giai_quyet
+    name: Hồ sơ tài nguyên, môi trường đã giải quyết
+    unit: hồ sơ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: tnmt.ho_so_tre_han
+    name: Hồ sơ tài nguyên, môi trường giải quyết trễ hạn
+    unit: hồ sơ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: tnmt.ho_so_dang_xu_ly
+    name: Hồ sơ tài nguyên, môi trường đang xử lý
+    unit: hồ sơ
+    value_type: integer
+    aggregation: point_in_time
+    capture_method: export
+  - id: tnmt.vi_pham_dat_dai
+    name: Vụ vi phạm đất đai đã phát hiện, xử lý
+    unit: vụ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: form
+  - id: tnmt.vsmt_ho_nop
+    name: Hộ đã nộp phí vệ sinh môi trường
+    unit: hộ
+    value_type: integer
+    aggregation: cumulative
+    capture_method: export
+  - id: tnmt.vsmt_ty_le
+    name: Tỷ lệ hộ nộp phí vệ sinh môi trường
+    unit: "%"
+    value_type: percent
+    aggregation: point_in_time
+    capture_method: export
+  - id: tnmt.vsmt_tien
+    name: Số tiền phí vệ sinh môi trường đã thu
+    unit: đồng
+    value_type: money
+    aggregation: cumulative
+    capture_method: export
