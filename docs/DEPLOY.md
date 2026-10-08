@@ -36,6 +36,19 @@ Không đưa ra ngoài: Postgres 5462, MinIO 9110/9111, reader 3072 (chỉ bind 
 
 Sau khi đổi env: `cd infra && docker compose up -d --force-recreate api web` (env_file chỉ đọc lúc tạo container).
 
+## Tự triển khai từ GitHub
+
+Repo: https://github.com/dofficevn-git/do360vDN (nhánh `main`). Máy chạy kiểm tra GitHub mỗi 5 phút bằng `infra/auto-deploy.sh`
+(Task Scheduler "DO360 auto-deploy", đăng ký một lần: `powershell -ExecutionPolicy Bypass -File infraegister-auto-deploy.ps1`):
+
+1. `git fetch`; có commit mới → `git pull --ff-only` (cây làm việc có sửa đổi chưa commit thì bỏ qua, ghi nhật ký — máy dev không bị ghi đè).
+2. Build đúng dịch vụ có file đổi (`services/api` → api, `apps/web` → web, `services/reader` → reader; `config/` chỉ nạp lại danh mục qua API, không build).
+3. `docker compose up -d`, chờ `/health`; OK thì ghi commit đã triển khai vào `infra/logs/deployed.sha`. Build lỗi → giữ bản đang chạy.
+4. Nhật ký `infra/logs/deploy.log`. Ép build lại toàn bộ: `bash infra/auto-deploy.sh --force`.
+
+Quy trình làm việc: sửa code → commit → `git push` (từ máy này hoặc máy khác) → tối đa 5 phút sau bản mới chạy tại https://khodulieu.vn.
+Migration CSDL chạy tự động khi API khởi động. Muốn triển khai ngay: `bash infra/auto-deploy.sh`.
+
 ## Việc còn lại trước khi dùng thật
 
 1. **Đổi mật khẩu** tài khoản khởi tạo `admin@do360.local` ngay (web → Tài khoản). Mật khẩu demo nằm trong `.env.production`.
